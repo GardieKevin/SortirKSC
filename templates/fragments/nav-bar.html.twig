@@ -1,0 +1,21 @@
+<nav>
+
+    <a href="{{ path('main_home') }}">Home</a>
+
+    {% if app.user %}
+        <p> Bonjour {{ app.user.firstname }} !</p>
+        <a>My profile</a>
+        <a href="{{ path('app_logout') }}">Log out</a>
+
+        {% if app.user.administrator %}
+            <a href="{{ path('app_register') }}">Register</a>
+            <a>Cities</a>
+            <a>Campus</a>
+        {% endif %}
+    {% endif %}
+
+    {% if not app.user %}
+        <a href="{{ path('app_login') }}">Log in</a>
+    {% endif %}
+
+</nav>

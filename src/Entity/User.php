@@ -39,6 +39,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $activ;
 
+    #[ORM\Column(type: 'boolean')]
+    private $administrator;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,6 +156,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setActiv(bool $activ): self
     {
         $this->activ = $activ;
+
+        return $this;
+    }
+
+    public function getAdministrator(): ?bool
+    {
+        return $this->administrator;
+    }
+
+    public function setAdministrator(bool $administrator): self
+    {
+        $this->administrator = $administrator;
 
         return $this;
     }
