@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Events list</h1>
+
+    <section>
+
+        {% for event in events %}
+
+            <article>
+
+                <h3>{{ event.name }}</h3>
+                <p>Start : {{ event.startingDate | date }}</p>
+                <p>Limit date for inscription : {{ event.limitInscribeDate | date }}</p>
+                <p>Max : {{ event.maxInscriptionsNumber }}</p>
+                <p>Event description : {{ event.informations }}</p>
+
+            </article>
+
+        {% endfor %}
+
+    </section>
+
+{% endblock %}

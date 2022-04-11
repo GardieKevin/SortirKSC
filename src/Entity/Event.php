@@ -22,7 +22,7 @@ class Event
     #[ORM\Column(type: 'string', length: 255)]
     private $duration;
 
-    #[ORM\Column(type: 'date')]
+    #[ORM\Column(type: 'datetime')]
     private $limitInscribeDate;
 
     #[ORM\Column(type: 'integer')]
