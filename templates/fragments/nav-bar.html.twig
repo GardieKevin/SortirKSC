@@ -1,22 +1,21 @@
-<nav>
+<nav class="nav">
 
-    <a href="{{ path('main_home') }}">Home</a>
+    <a class="nav-item" href="{{ path('main_home') }}">Home</a>
 
     {% if app.user %}
-        <p> Bonjour {{ app.user.firstname }} !</p>
-        <a>My profile</a>
-        <a href="{{ path('app_logout') }}">Log out</a>
+        <a class="nav-item">My profile</a>
+        <a class="nav-item" href="{{ path('app_logout') }}">Log out</a>
 
         {% if app.user.administrator %}
-            <a href="{{ path('app_register') }}">Register a user</a>
-            <a>Cities</a>
-            <a>Campus</a>
-            <a href="{{ path('admin') }}">Dashboard</a>
+            <a class="nav-item" href="{{ path('app_register') }}">Register a user</a>
+            <a class="nav-item">Cities</a>
+            <a class="nav-item">Campus</a>
+            <a class="nav-item" href="{{ path('admin') }}">Dashboard</a>
         {% endif %}
     {% endif %}
 
     {% if not app.user %}
-        <a href="{{ path('app_login') }}">Log in</a>
+        <a class="nav-item" href="{{ path('app_login') }}">Log in</a>
     {% endif %}
 
 </nav>

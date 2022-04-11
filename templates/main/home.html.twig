@@ -2,9 +2,15 @@
 
 {% block body %}
 
+    {% if app.user %}
+        <h2> Hello {{ app.user.firstname }} !</h2>
+    {% endif %}
+
     <div>
-        <h1>Welcome to EventKSC !!</h1>
+        <h2>Welcome to your new favorite website!</h2>
     </div>
+
+
 
     {% if app.user %}
     <!-- créer lien vers create event -->
