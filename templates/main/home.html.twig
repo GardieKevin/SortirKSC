@@ -2,13 +2,13 @@
 
 {% block body %}
 
-    {% if app.user %}
-        <h2> Hello {{ app.user.firstname }} !</h2>
+    {% if not app.user %}
+        <h2>Welcome to your new favorite website!</h2>
     {% endif %}
 
-    <div>
-        <h2>Welcome to your new favorite website!</h2>
-    </div>
+    {% if app.user %}
+        <h2> Welcome back {{ app.user.firstname }} !</h2>
+    {% endif %}
 
 
 
