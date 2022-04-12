@@ -3,8 +3,8 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Welcome {{ user.firstname }} {{ user.lastname }}</h1>
-
+    <h1>Welcome {{ app.user.firstname }} {{ app.user.lastname }}</h1>
+    <a href=""><img src="{{ asset('pictures/photos/' ~app.user.image )}}" alt="image-de-profil"></a>
     {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('user_index') }}">Home</a>
