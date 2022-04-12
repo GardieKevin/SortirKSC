@@ -23,6 +23,13 @@
                     <p>Max affluence : {{ event.maxInscriptionsNumber }} persons</p>
                     <p>Description : {{ event.informations }}</p>
                 </article>
+
+                {% if app.user.pseudo is same as (event.organisator.pseudo) %}
+                    <a href="{{ path('event_modify', {'id': event.id }) }}">
+                        <button value="modify">Modify the event</button>
+                    </a>
+                {% endif %}
+
             {% endfor %}
         </section>
 
