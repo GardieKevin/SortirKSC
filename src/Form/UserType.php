@@ -3,9 +3,11 @@
 namespace App\Form;
 
 use App\Entity\User;
+use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -17,8 +19,10 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
+            ->add('email', TextType::class,
+            ['label'=> 'Email'])
             ->add('plainPassword', PasswordType::class, [
+                'label'=>'Password',
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -35,12 +39,14 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('lastname')
-            ->add('firstname')
-            ->add('phone')
-            ->add('activ')
+            ->add('lastname', TextType::class,
+                ['label'=>'Surname '])
+            ->add('firstname', TextType::class,
+                ['label'=>'Given name'])
+            ->add('phone', TextType::class,
+                ['label'=>'Phone'])
             ->add('photo',FileType::class,
-                ['label'=>'Votre image de profil (Image seulement)',
+                ['label'=>'Avatar : ',
                     'mapped'=>false,
                     'required'=>false,
                     'constraints'=>[
@@ -52,7 +58,7 @@ class UserType extends AbstractType
                                 'image/jpg',
                                 'image/png',
                             ],
-                            'mimeTypesMessage'=>'Le format n\'est pas valide',
+                            'mimeTypesMessage'=>'Choose a valid format : gif,jpeg,jpg,png',
                         ])
                     ],
                 ])

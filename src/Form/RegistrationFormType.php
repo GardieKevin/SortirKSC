@@ -23,9 +23,8 @@ class RegistrationFormType extends AbstractType
             ->add('lastname')
             ->add('firstname')
             ->add('phone')
-            ->add('activ')
             ->add('photo',FileType::class,
-            ['label'=>'Votre image de profil (Image seulement)',
+            ['label'=>'Avatar :',
                 'mapped'=>false,
                 'required'=>false,
                 'constraints'=>[
@@ -37,19 +36,11 @@ class RegistrationFormType extends AbstractType
                             'image/jpg',
                             'image/png',
                             ],
-                        'mimeTypesMessage'=>'Le format n\'est pas valide',
+                        'mimeTypesMessage'=>'Choose a valid format : gif,jpeg,jpg,png',
                     ])
-                ],
+                ]
             ])
-            ->add('administrator')
-            ->add('agreeTerms', CheckboxType::class, [
-                'mapped' => false,
-                'constraints' => [
-                    new IsTrue([
-                        'message' => 'You should agree to our terms.',
-                    ]),
-                ],
-            ])
+
             ->add('plainPassword', PasswordType::class, [
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller

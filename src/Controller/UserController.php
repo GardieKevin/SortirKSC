@@ -31,7 +31,7 @@ class UserController extends AbstractController
     {
         $user = $ur->find($id);
         if (!$user) {
-            throw $this->createNotFoundException('Aucun utilisateur n\'a été trouvé');
+            throw $this->createNotFoundException('No user found');
         }
         return $this->render(
             'user/detail.html.twig',
