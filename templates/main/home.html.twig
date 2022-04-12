@@ -13,8 +13,9 @@
         <section>
             {% for event in events %}
                 <article>
-                    <h4>{{ event.name }}</h4>
+                    <a href="{{ path('event_detail', {'id': event.id}) }}">{{ event.name }}</a>
                     <p>Organised by : {{ event.organisator.pseudo }}</p>
+                    <p>Campus : {{ event.organisator.campus }}</p>
                     <p>Date & Hour : {{ event.startingDate | date('d/m/Y - h:m' ) }}</p>
                     <p>Inscription limit : {{ event.limitInscribeDate | date('d/m/Y & h:m' )  }}</p>
                     <p>Max affluence : {{ event.maxInscriptionsNumber }} persons</p>
