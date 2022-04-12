@@ -31,6 +31,10 @@ class Event
     #[ORM\Column(type: 'string', length: 255)]
     private $informations;
 
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $organisator;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -104,6 +108,18 @@ class Event
     public function setInformations(string $informations): self
     {
         $this->informations = $informations;
+
+        return $this;
+    }
+
+    public function getOrganisator(): ?User
+    {
+        return $this->organisator;
+    }
+
+    public function setOrganisator(?User $organisator): self
+    {
+        $this->organisator = $organisator;
 
         return $this;
     }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Event;
 use App\Form\EventType;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,12 +24,19 @@ class EventController extends AbstractController
 
     #[Route('/create', name: 'event_create')]
     public function create(
+
         Request $request,
         EntityManagerInterface $em,
+        UserRepository $ur,
 
     ): Response
     {
         $event = new Event();
+
+        $user = $this->getUser();
+        $currentUser = $ur->findOneBy(['pseudo' => $user->getUserIdentifier()]);
+        $event->setOrganisator($currentUser);
+
         $eventForm = $this->createForm(EventType::class, $event);
         $eventForm->handleRequest($request);
 
