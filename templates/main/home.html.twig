@@ -14,11 +14,11 @@
             {% for event in events %}
                 <article>
                     <h4>{{ event.name }}</h4>
-                    <p>Organisator : {{ event.organisator.pseudo }}</p>
-                    <p>Start : {{ event.startingDate | date }}</p>
-                    <p>Limit date for inscription : {{ event.limitInscribeDate | date }}</p>
-                    <p>Max : {{ event.maxInscriptionsNumber }}</p>
-                    <p>Event description : {{ event.informations }}</p>
+                    <p>Organised by : {{ event.organisator.pseudo }}</p>
+                    <p>Date & Hour : {{ event.startingDate | date('d/m/Y - h:m' ) }}</p>
+                    <p>Inscription limit : {{ event.limitInscribeDate | date('d/m/Y & h:m' )  }}</p>
+                    <p>Max affluence : {{ event.maxInscriptionsNumber }} persons</p>
+                    <p>Description : {{ event.informations }}</p>
                 </article>
             {% endfor %}
         </section>
