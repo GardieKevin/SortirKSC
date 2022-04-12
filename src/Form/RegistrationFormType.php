@@ -22,6 +22,7 @@ class RegistrationFormType extends AbstractType
             ->add('email')
             ->add('lastname')
             ->add('firstname')
+            ->add('pseudo')
             ->add('phone')
             ->add('photo',FileType::class,
             ['label'=>'Avatar :',

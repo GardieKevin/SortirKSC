@@ -5,12 +5,14 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserController extends AbstractController
@@ -18,18 +20,18 @@ class UserController extends AbstractController
     #[Route('/user', name: 'user_index')]
     public function index(): Response
     {
-        return $this->render('user/index.html.twig', [
+        return $this->render('user/detail.html.twig', [
             'controller_name' => 'UserController',
         ]);
     }
 
     #[Route('/user/{id}', name: 'user_detail')]
     public function detail(
-        int            $id,
+        User           $user,
         UserRepository $ur
     ): Response
     {
-        $user = $ur->find($id);
+        $user = $this->getUser();
         if (!$user) {
             throw $this->createNotFoundException('No user found');
         }
@@ -38,16 +40,17 @@ class UserController extends AbstractController
             compact('user'));
     }
 
-    #[Route('/user/edit/{id}', name: 'user_edit', methods: ['GET', 'POST'])]
+    #[Route('/user/edit/{id}', name: 'user_edit', methods: ['GET', 'POST'], requirements: ['id'=>'^\d+'])]
     public function edit(
+        Int            $id,
         Request        $request,
         User           $user,
         UserRepository $ur,
-        int            $id,
         SluggerInterface $slugger,
         UserPasswordHasherInterface $userPasswordHasher
     ): Response
     {
+        $user = $ur->find($id);
         $form = $this->createForm(UserType::class, $user);
         $form->handleRequest($request);
         $photo = $form->get('photo')->getData();
@@ -85,9 +88,6 @@ class UserController extends AbstractController
             return $this->redirectToRoute('user_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('user/edit.html.twig', [
-            'user' => $user,
-            'form' => $form,
-        ]);
+        return $this->renderForm('user/edit.html.twig', compact('user', 'form'));
     }
 }
