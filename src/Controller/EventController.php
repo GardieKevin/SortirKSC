@@ -3,8 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\Wish;
 use App\Form\EventType;
+use App\Repository\EventRepository;
 use App\Repository\UserRepository;
+use App\Repository\WishRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -50,6 +53,18 @@ class EventController extends AbstractController
         return $this->render(
             'event/create.html.twig',
             ['myForm' => $eventForm->createView()]
+        );
+    }
+
+    #[Route('/event/detail/{id}', name: 'event_detail')]
+    public function detail(
+
+        EventRepository $eventRepository,
+        Event           $event
+    ): Response
+    {
+        return $this->render('event/detail.html.twig',
+            compact("event")
         );
     }
 }
