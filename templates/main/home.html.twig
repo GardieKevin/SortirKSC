@@ -22,7 +22,9 @@
             {% endfor %}
         </section>
 
-        <button href="###" type="button" value="create">Create an event</button>
+        <a href="{{ path('event_create') }}">
+            <button value="create">Create an event</button>
+        </a>
 
     {% endif %}
 
