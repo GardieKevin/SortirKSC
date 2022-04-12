@@ -41,6 +41,7 @@ class RegistrationFormType extends AbstractType
                     ])
                 ],
             ])
+            ->add('administrator')
             ->add('agreeTerms', CheckboxType::class, [
                 'mapped' => false,
                 'constraints' => [
