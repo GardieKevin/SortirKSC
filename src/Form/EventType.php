@@ -15,6 +15,7 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('campus')
             ->add('startingDate')
             ->add('duration')
             ->add('limitInscribeDate')
