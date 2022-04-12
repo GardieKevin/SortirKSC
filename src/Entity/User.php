@@ -38,6 +38,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     private $activ;
 
+    #[ORM\Column(type: 'string', length: 20)]
+    private $pseudo;
+
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $image;
 
@@ -161,6 +164,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
+
+    public function getPseudo(): ?string
+    {
+        return $this->pseudo;
+    }
+
+    public function setPseudo(string $pseudo): self
+    {
+        $this->pseudo = $pseudo;
 
     public function getImage(): ?string
     {
