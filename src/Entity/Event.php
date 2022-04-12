@@ -38,6 +38,10 @@ class Event
     #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'events')]
     private $campus;
 
+    #[ORM\ManyToOne(targetEntity: Etat::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $etat;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -135,6 +139,18 @@ class Event
     public function setCampus(?Campus $campus): self
     {
         $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function getEtat(): ?Etat
+    {
+        return $this->etat;
+    }
+
+    public function setEtat(?Etat $etat): self
+    {
+        $this->etat = $etat;
 
         return $this;
     }
