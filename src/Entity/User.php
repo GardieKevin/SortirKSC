@@ -52,6 +52,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'organisator', targetEntity: Event::class)]
     private $events;
 
+    #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'users')]
+    private $campus;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -240,4 +243,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getCampus(): ?Campus
+    {
+        return $this->campus;
+    }
+
+    public function setCampus(?Campus $campus): self
+    {
+        $this->campus = $campus;
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->pseudo;
+    }
 }
