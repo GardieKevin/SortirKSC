@@ -15,6 +15,8 @@
                 <article>
 
                     <h4>{{ event.name }}</h4>
+                    <p>Organised by : <a href="{{ path('user_detail', {'id': event.organisator.id }) }}"> {{ event.organisator.pseudo }}</a></p>
+                    <p>Campus : {{ event.campus }}</p>
                     <p>Organised by : <a href="{{ path('user_edit', {'id': event.organisator.id }) }}"> {{ event.organisator.pseudo }}</a></p>
                     <a href="{{ path('event_detail', {'id': event.id}) }}">{{ event.name }}</a>
                     <p>Campus : {{ event.campus }}</p>

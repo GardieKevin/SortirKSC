@@ -2,8 +2,16 @@
 
 {% block body %}
     <h1>Welcome {{ app.user.pseudo }} !</h1>
+    <a href=""><img src="{{ asset('pictures/photos/'~user.image )}}" alt="image-de-profil" height="200"></a>
+        <p>Firstname : {{ user.firstname }}</p>
+        <p>Lastname : {{ user.lastname }}</p>
+        <p>Email : {{ user.email }}</p>
+        <p>Phone number : {{ user.phone }}</p>
+        <p>Activ member : {{ user.activ }}</p>
 
-            <p></p>
+        {% if app.user.id is same as user.id %}
+        <button type="submit" ><a href="{{ path('user_edit', {'id': app.user.id }) }}">Modify </button>
+        {% endif %}
 {% endblock %}
 
 {% block title %}
