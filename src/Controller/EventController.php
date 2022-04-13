@@ -39,11 +39,11 @@ class EventController extends AbstractController
         $user = $this->getUser();
         $currentUser = $ur->findOneBy(['pseudo' => $user->getUserIdentifier()]);
         $event->setOrganisator($currentUser);
-
         $eventForm = $this->createForm(EventType::class, $event);
         $eventForm->handleRequest($request);
 
         if ($eventForm->isSubmitted() && $eventForm->isValid()){
+
             $em->persist($event);
             $em->flush();
             $this->addFlash('info', 'Event successfully created !');
