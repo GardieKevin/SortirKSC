@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CityController!{% endblock %}
+
+{% block body %}
+
+    <form action="" method="post">
+        <div class="form-group">
+            <label for="postcode"></label>
+            <input type="text" name="postcode" placeholder="Recherchez une commune ..." id="postcode">
+            <div style="display: none" id="error-message"></div>
+        </div>
+
+        <div class="form-group">
+            <label for="city">Ville</label>
+            <select name="city" id="city" class="form-control"></select>
+        </div>
+    <button type="submit">Send</button>
+    </form>
+{% endblock %}
