@@ -2,6 +2,8 @@
 
 namespace App\Form;
 
+
+use App\Entity\Campus;
 use App\Entity\Etat;
 use App\Entity\Event;
 use App\Entity\User;
@@ -16,7 +18,7 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('campus')
+            ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label'=> 'name'])
             ->add('startingDate')
             ->add('duration')
             ->add('limitInscribeDate')
