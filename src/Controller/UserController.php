@@ -17,12 +17,11 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserController extends AbstractController
 {
-    #[Route('/user', name: 'user_index')]
+    #[Route('/', name: 'user_index')]
     public function index(): Response
     {
-        return $this->render('user/detail.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        return $this->render('user/detail.html.twig');
+
     }
 
     #[Route('/user/{id}', name: 'user_detail')]
@@ -62,7 +61,7 @@ class UserController extends AbstractController
             $originalFilename = pathinfo($photo->getClientOriginalName(), PATHINFO_FILENAME);
             // this is needed to safely include the file name as part of the URL
             $safeFilename = $slugger->slug($originalFilename);
-            $newFilename = $safeFilename.'-'.uniqid().'.'.$photo->guessExtension();
+            $newFilename =$user.'.'.$photo->guessExtension();
 
             // Move the file to the directory where brochures are stored
             try {

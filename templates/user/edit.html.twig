@@ -4,9 +4,23 @@
 
 {% block body %}
     <h1>Welcome {{ app.user.firstname }} {{ app.user.lastname }}</h1>
-    <a href=""><img src="{{ asset('pictures/photos/' ~app.user.image )}}" alt="image-de-profil" height="200"></a>
+    <script>
+        function display_image(src, width, height, alt) {
+            var a = document.createElement("img");
+            a.src = "{{ asset('pictures/photos/' ~user.image )}}";
+            // a.width = 200;
+            a.height = 150;
+            a.alt = "Avatar";
+            document.body.appendChild(a);
+        }
+        display_image('JavaScript.jpg',
+            276,
+            110,
+            'JavaScriptImage');
+    </script>
     {{ include('user/_form.html.twig',     {'button_label': 'Update'}) }}
 
-    <a href="{{ path('user_index') }}">Home</a>
+
+{#    <a href="{{ path('user_index') }}">Home</a>#}
 
 {% endblock %}
