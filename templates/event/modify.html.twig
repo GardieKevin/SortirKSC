@@ -2,8 +2,11 @@
 
 {% block body %}
 
-    <p>Name : {{ event.name }}</p>
-
-
+    {{ form_start(eventForm) }}
+    {{ form_widget(eventForm) }}
+    <a href="{{ path('main_home') }}">
+        <button>Submit</button>
+    </a>
+    {{ form_end(eventForm) }}
 {% endblock %}
 

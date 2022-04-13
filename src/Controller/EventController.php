@@ -15,10 +15,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class EventController extends AbstractController
 {
 
-//    #[Route('/event', name: 'app_event')]
+//    #[Route('/event', name: 'event_index')]
 //    public function index(): Response
 //    {
-//        return $this->render('event/index.html.twig', [
+//        return $this->render('event/detail.html.twig', [
 //            'controller_name' => 'EventController',
 //        ]);
 //    }
@@ -68,14 +68,20 @@ class EventController extends AbstractController
 
     #[Route('/event/modify/{id}', name: 'event_modify', requirements: ['id'=>'^\d+'], methods: ['GET', 'POST'])]
     public function modify(
-        //TODO methode modify pour les events
-
-        EventRepository $eventRepository,
-        Event           $event
+        Int $id,
+        Request $request,
+        Event           $event,
+        EventRepository $er,
     ): Response
     {
-        return $this->render('event/modify.html.twig',
-            compact("event")
+        $event = $er->find($id);
+        $eventForm = $this->createForm(EventType::class, $event);
+        $eventForm->handleRequest($request);
+
+        $er->add($event);
+
+        return $this->renderForm('event/modify.html.twig',
+            compact("event", "eventForm")
         );
     }
 }

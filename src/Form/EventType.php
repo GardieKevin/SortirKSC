@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Campus;
 use App\Entity\Event;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -15,7 +16,7 @@ class EventType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('campus')
+            ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label'=> 'name'])
             ->add('startingDate')
             ->add('duration')
             ->add('limitInscribeDate')
