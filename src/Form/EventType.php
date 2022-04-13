@@ -2,7 +2,9 @@
 
 namespace App\Form;
 
+
 use App\Entity\Campus;
+use App\Entity\Etat;
 use App\Entity\Event;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -22,6 +24,7 @@ class EventType extends AbstractType
             ->add('limitInscribeDate')
             ->add('maxInscriptionsNumber')
             ->add('informations')
+            ->add('etat',EntityType::class, ['class'=>Etat::class, 'choice_label'=>'libelle'] )
         ;
     }
 

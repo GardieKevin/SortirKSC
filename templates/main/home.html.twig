@@ -3,8 +3,8 @@
 {% block body %}
 
     {% if not app.user %}
-        <h2>Welcome to your new favorite website!</h2>
-        <h5>If you want to see the events organiszed by our KSC lovers, please connect you to our flying network!</h5>
+        <h2>Welcome to sortir.com</h2>
+        <h4>If you want to see the events organiszed by our KSC lovers<br> please connect you to our flying network!</h4>
     {% endif %}
 
     {% if app.user %}
@@ -18,10 +18,12 @@
                     <p>Organised by : <a href="{{ path('user_edit', {'id': event.organisator.id }) }}"> {{ event.organisator.pseudo }}</a></p>
                     <a href="{{ path('event_detail', {'id': event.id}) }}">{{ event.name }}</a>
                     <p>Campus : {{ event.campus }}</p>
+                    <p>Campus : {{ event.campus }}</p>
                     <p>Date & Hour : {{ event.startingDate | date('d/m/Y - h:m' ) }}</p>
                     <p>Inscription limit : {{ event.limitInscribeDate | date('d/m/Y & h:m' )  }}</p>
                     <p>Max affluence : {{ event.maxInscriptionsNumber }} persons</p>
                     <p>Description : {{ event.informations }}</p>
+                    <p>Status : {{ event.etat.libelle }}</p>
                 </article>
 
                 {% if app.user.pseudo is same as (event.organisator.pseudo) %}
