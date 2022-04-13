@@ -84,4 +84,6 @@ class EventController extends AbstractController
             compact("event", "eventForm")
         );
     }
+
+
 }

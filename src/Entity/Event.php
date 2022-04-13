@@ -2,40 +2,56 @@
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 #[ORM\Entity(repositoryClass: EventRepository::class)]
+#[ApiResource(
+    normalizationContext: ['groups' => ['read']]
+)]
+
 class Event
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("read")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read")]
     private $name;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups("read")]
     private $startingDate;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read")]
     private $duration;
 
     #[ORM\Column(type: 'datetime')]
+    #[Groups("read")]
     private $limitInscribeDate;
 
     #[ORM\Column(type: 'integer')]
+    #[Groups("read")]
     private $maxInscriptionsNumber;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Groups("read")]
     private $informations;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("read")]
     private $organisator;
 
     #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'events')]
+    #[Groups("read")]
     private $campus;
 
     #[ORM\ManyToOne(targetEntity: Etat::class, inversedBy: 'events')]
