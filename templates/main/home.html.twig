@@ -15,7 +15,7 @@
                 <article>
 
                     <h4>{{ event.name }}</h4>
-                    <p>Organised by : <a href="{{ path('user_edit', {'id': event.organisator.id }) }}"> {{ event.organisator.pseudo }}</a></p>
+                    <p>Organised by : <a href="{{ path('user_detail', {'id': event.organisator.id }) }}"> {{ event.organisator.pseudo }}</a></p>
                     <p>Campus : {{ event.organisator.campus }}</p>
                     <p>Date & Hour : {{ event.startingDate | date('d/m/Y - h:m' ) }}</p>
                     <p>Inscription limit : {{ event.limitInscribeDate | date('d/m/Y & h:m' )  }}</p>

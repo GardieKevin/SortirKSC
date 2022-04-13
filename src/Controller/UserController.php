@@ -27,11 +27,12 @@ class UserController extends AbstractController
 
     #[Route('/user/{id}', name: 'user_detail')]
     public function detail(
+        int            $id,
         User           $user,
         UserRepository $ur
     ): Response
     {
-        $user = $this->getUser();
+        $user = $ur->find($id);
         if (!$user) {
             throw $this->createNotFoundException('No user found');
         }
