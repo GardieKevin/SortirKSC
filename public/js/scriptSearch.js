@@ -11,17 +11,39 @@ function maMethode() {
                     if (name.value === "") {
                         let variable = result['name'];
                         let informations = result['informations'];
-                        $(event).append('<div>' + "Name : " + variable + '</div>',
-                                        '<div>' + "Informations : " + informations + '</div>')
+                        let startingDate = result['startingDate'];
+                        let duration = result['duration'];
+                        let limit = result['limitInscribeDate'];
+                        let affluence = result['maxInscriptionsNumber'];
+                        let id = result['organisator']['id'];
+                        let campus = result['campus']['name'];
+                        $(event).append('<h2>' + "Name : " + variable + '</h2>',
+                                        '<div>' + "Date & Hour : " + startingDate + '</div>',
+                                        '<div>' + "Duration : " + duration + '</div>',
+                                        '<div>' + "Inscription limit : " + limit + '</div>',
+                                        '<div>' + "Max affluence : " + affluence + '</div>',
+                                        '<div>' + "Informations : " + informations + '</div>',
+                                        '<a href="user/'+id+'">' + result['organisator']['pseudo'] + '</a>',
+                                        '<div>' + "Campus : " + campus + '</div>',)
+
                     } else {
                         if (result['name'] === name.value) {
                             let variable = result['name'];
                             let informations = result['informations'];
+                            let startingDate = result['startingDate'];
+                            let duration = result['duration'];
+                            let limit = result['limitInscribeDate'];
+                            let affluence = result['maxInscriptionsNumber'];
                             let id = result['organisator']['id'];
-                            //let organisator = result['organisator']['pseudo'];
-                            $(event).append('<div>' + variable +'</div>',
-                                            '<div>' + informations + '</div>',
-                                            '<a href="user/'+id+'">' + result['organisator']['pseudo'] + '</a>')
+                            let campus = result['campus']['name'];
+                            $(event).append('<h2>' + "Name : " + variable + '</h2>',
+                                '<div>' + "Date & Hour : " + startingDate + '</div>',
+                                '<div>' + "Duration : " + duration + '</div>',
+                                '<div>' + "Inscription limit : " + limit + '</div>',
+                                '<div>' + "Max affluence : " + affluence + '</div>',
+                                '<div>' + "Informations : " + informations + '</div>',
+                                '<a href="user/'+id+'">' + result['organisator']['pseudo'] + '</a>',
+                                '<div>' + "Campus : " + campus + '</div>',)
                         }
                     }
                 }
