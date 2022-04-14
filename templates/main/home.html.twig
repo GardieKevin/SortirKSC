@@ -35,11 +35,7 @@
                     <p>Status : {{ event.etat.libelle }}</p>
                 </article>
 
-                {% if app.user.pseudo is same as (event.organisator.pseudo) %}
-                    <a href="{{ path('event_modify', {'id': event.id }) }}">
-                        <button value="modify">Modify the event</button>
-                    </a>
-                {% endif %}
+
 
             {% endfor %}
         </section>

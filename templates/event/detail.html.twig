@@ -15,6 +15,12 @@
     <p>Latitude : </p>
     <p>longitude : </p>
 
+    {% if app.user.pseudo is same as (event.organisator.pseudo) %}
+        <a href="{{ path('event_modify', {'id': event.id }) }}">
+            <button value="modify">Modify the event</button>
+        </a>
+    {% endif %}
+
     <h4>Participants : </h4>
 
 {% endblock %}
