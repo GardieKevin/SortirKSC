@@ -60,12 +60,14 @@ class Event
     #[ORM\JoinColumn(nullable: false)]
     private $etat;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'event')]
-    private $user;
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'eventRegistrations', orphanRemoval: true)]
+    private $participants;
+
+
 
     public function __construct()
     {
-        $this->user = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -184,27 +186,28 @@ class Event
     /**
      * @return Collection<int, User>
      */
-    public function getUser(): Collection
+    public function getParticipants(): Collection
     {
-        return $this->user;
+        return $this->participants;
     }
 
-    public function addUser(User $user): self
+    public function addParticipant(User $participant): self
     {
-        if (!$this->user->contains($user)) {
-            $this->user[] = $user;
-            $user->addEvent($this);
+        if (!$this->participants->contains($participant)) {
+            $this->participants[] = $participant;
+            $participant->addEventRegistration($this);
         }
 
         return $this;
     }
 
-    public function removeUser(User $user): self
+    public function removeParticipant(User $participant): self
     {
-        if ($this->user->removeElement($user)) {
-            $user->removeEvent($this);
+        if ($this->participants->removeElement($participant)) {
+            $participant->removeEventRegistration($this);
         }
 
         return $this;
     }
+
 }

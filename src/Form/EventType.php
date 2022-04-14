@@ -25,6 +25,15 @@ class EventType extends AbstractType
             ->add('maxInscriptionsNumber')
             ->add('informations')
             ->add('etat',EntityType::class, ['class'=>Etat::class, 'choice_label'=>'libelle'] )
+            ->add('participants',
+                EntityType::class,
+                [
+                    'class'=>User::class,
+                    'choice_label' => 'eventRegistrations',
+                    'multiple' => true,
+                    'expanded' => true,
+                ]
+            )
         ;
     }
 

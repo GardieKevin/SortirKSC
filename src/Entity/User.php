@@ -6,6 +6,8 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\OneToMany;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -58,13 +60,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'users')]
     private $campus;
 
-    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'user')]
-    private $event;
+    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'participants', orphanRemoval: true)]
+    private $eventRegistrations;
 
     public function __construct()
     {
         $this->events = new ArrayCollection();
-        $this->event = new ArrayCollection();
+        $this->eventRegistrations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -270,8 +272,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Event>
      */
-    public function getEvent(): Collection
+    public function getEventRegistrations(): Collection
     {
-        return $this->event;
+        return $this->eventRegistrations;
+    }
+
+    public function addEventRegistration(Event $eventRegistration): self
+    {
+        if (!$this->eventRegistrations->contains($eventRegistration)) {
+            $this->eventRegistrations[] = $eventRegistration;
+        }
+
+        return $this;
+    }
+
+    public function removeEventRegistration(Event $eventRegistration): self
+    {
+        $this->eventRegistrations->removeElement($eventRegistration);
+
+        return $this;
     }
 }

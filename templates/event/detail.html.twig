@@ -5,7 +5,7 @@
     <p>Name : {{ event.name }}</p>
     <p>Create by : {{ event.organisator.pseudo }}</p>
     <p>Date & Hour : {{ event.startingDate | date('d/m/Y - h:m' ) }}</p>
-    <p>Inscription limit : {{ event.limitInscribeDate | date('d/m/Y & h:m' )  }}</p>
+    <p>Inscription limit : {{ event.limitInscribeDate | date('d/m/Y & h:m' ) }}</p>
     <p>Duration : {{ event.duration }} minutes</p>
     <p>Description & informations : {{ event.informations }}</p>
     <p>Campus : {{ event.campus }}</p>
@@ -21,7 +21,16 @@
         </a>
     {% endif %}
 
+    {% if app.user.id %}
+
+        <a href="{{ path('event_registration', {'event': event.id}) }}">
+            <button value="registration">Registration to event</button>
+        </a>
+    {% endif %}
+
     <h4>Participants : </h4>
+
+
 
 {% endblock %}
 
