@@ -60,15 +60,16 @@ class Event
     #[ORM\JoinColumn(nullable: false)]
     private $etat;
 
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'eventRegistrations', orphanRemoval: true)]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'eventsRegistrations')]
     private $participants;
-
-
 
     public function __construct()
     {
         $this->participants = new ArrayCollection();
     }
+
+
+
 
     public function getId(): ?int
     {
@@ -195,7 +196,6 @@ class Event
     {
         if (!$this->participants->contains($participant)) {
             $this->participants[] = $participant;
-            $participant->addEventRegistration($this);
         }
 
         return $this;
@@ -203,11 +203,8 @@ class Event
 
     public function removeParticipant(User $participant): self
     {
-        if ($this->participants->removeElement($participant)) {
-            $participant->removeEventRegistration($this);
-        }
+        $this->participants->removeElement($participant);
 
         return $this;
     }
-
 }

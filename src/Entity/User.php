@@ -60,13 +60,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'users')]
     private $campus;
 
-    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'participants', orphanRemoval: true)]
-    private $eventRegistrations;
+    #[ORM\ManyToMany(targetEntity: Event::class, mappedBy: 'participants')]
+    private $eventsRegistrations;
+
+
 
     public function __construct()
     {
         $this->events = new ArrayCollection();
-        $this->eventRegistrations = new ArrayCollection();
+        $this->eventsRegistrations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -272,23 +274,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @return Collection<int, Event>
      */
-    public function getEventRegistrations(): Collection
+    public function getEventsRegistrations(): Collection
     {
-        return $this->eventRegistrations;
+        return $this->eventsRegistrations;
     }
 
-    public function addEventRegistration(Event $eventRegistration): self
+    public function addEventsRegistration(Event $eventsRegistration): self
     {
-        if (!$this->eventRegistrations->contains($eventRegistration)) {
-            $this->eventRegistrations[] = $eventRegistration;
+        if (!$this->eventsRegistrations->contains($eventsRegistration)) {
+            $this->eventsRegistrations[] = $eventsRegistration;
+            $eventsRegistration->addParticipant($this);
         }
 
         return $this;
     }
 
-    public function removeEventRegistration(Event $eventRegistration): self
+    public function removeEventsRegistration(Event $eventsRegistration): self
     {
-        $this->eventRegistrations->removeElement($eventRegistration);
+        if ($this->eventsRegistrations->removeElement($eventsRegistration)) {
+            $eventsRegistration->removeParticipant($this);
+        }
 
         return $this;
     }
