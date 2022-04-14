@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Entity\User;
 use App\Form\EventType;
+use App\Form\UserType;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,9 +29,9 @@ class EventController extends AbstractController
     #[Route('/create', name: 'event_create')]
     public function create(
 
-        Request $request,
+        Request                $request,
         EntityManagerInterface $em,
-        UserRepository $ur,
+        UserRepository         $ur,
 
     ): Response
     {
@@ -40,7 +43,7 @@ class EventController extends AbstractController
         $eventForm = $this->createForm(EventType::class, $event);
         $eventForm->handleRequest($request);
 
-        if ($eventForm->isSubmitted() && $eventForm->isValid()){
+        if ($eventForm->isSubmitted() && $eventForm->isValid()) {
 
             $em->persist($event);
             $em->flush();
@@ -66,10 +69,10 @@ class EventController extends AbstractController
         );
     }
 
-    #[Route('/event/modify/{id}', name: 'event_modify', requirements: ['id'=>'^\d+'], methods: ['GET', 'POST'])]
+    #[Route('/event/modify/{id}', name: 'event_modify', requirements: ['id' => '^\d+'], methods: ['GET', 'POST'])]
     public function modify(
-        Int $id,
-        Request $request,
+        int             $id,
+        Request         $request,
         Event           $event,
         EventRepository $er,
     ): Response
@@ -85,5 +88,19 @@ class EventController extends AbstractController
         );
     }
 
+    #[Route('/event/{event}/registration/', name: 'event_registration')]
+    public function eventAddUser(
+        Event $event,
+        EventRepository $er,
+        UserRepository $ur,
+        EntityManagerInterface $em,
+    ): Response
+    {
+        $user = $ur->findOneBy(['pseudo'=>($this->getUser()->getUserIdentifier())]);
+        $event->addParticipant($user);
+        $em->persist($event);
+        $em->flush($event);
+        return $this->redirectToRoute('user_index');
+    }
 
 }

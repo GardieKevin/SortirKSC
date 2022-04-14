@@ -2,8 +2,10 @@
 
 namespace App\Form;
 
+use App\Entity\Event;
 use App\Entity\User;
 use SebastianBergmann\CodeCoverage\Report\Text;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
