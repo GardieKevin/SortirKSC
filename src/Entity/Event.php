@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Serializer\Annotation\MaxDepth;
@@ -57,6 +59,14 @@ class Event
     #[ORM\ManyToOne(targetEntity: Etat::class, inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
     private $etat;
+
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'event')]
+    private $user;
+
+    public function __construct()
+    {
+        $this->user = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -167,6 +177,33 @@ class Event
     public function setEtat(?Etat $etat): self
     {
         $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUser(): Collection
+    {
+        return $this->user;
+    }
+
+    public function addUser(User $user): self
+    {
+        if (!$this->user->contains($user)) {
+            $this->user[] = $user;
+            $user->addEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): self
+    {
+        if ($this->user->removeElement($user)) {
+            $user->removeEvent($this);
+        }
 
         return $this;
     }
