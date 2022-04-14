@@ -103,4 +103,21 @@ class EventController extends AbstractController
         return $this->redirectToRoute('user_index');
     }
 
+    //TODO suppression d'un évènement
+    #[Route('/event/delete/{id}', name: 'event_delete')]
+    public function delete(
+        Event $event,
+        EventRepository $eventRepository,
+        EntityManagerInterface $em,
+        Request $request, $id
+    ): Response
+    {
+        $eventRepository = $em->getRepository(Event::class);
+        $event = $eventRepository->find($id);
+        $em->remove($event);
+        $em->flush();
+
+        return $this->redirectToRoute('main_home');
+    }
+
 }
