@@ -58,9 +58,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: Campus::class, inversedBy: 'users')]
     private $campus;
 
+    #[ORM\ManyToMany(targetEntity: Event::class, inversedBy: 'user')]
+    private $event;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->event = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -261,5 +265,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->pseudo;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvent(): Collection
+    {
+        return $this->event;
     }
 }
