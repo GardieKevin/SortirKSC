@@ -1,69 +1,68 @@
-function maMethode() {
-    let name = document.getElementById('name');
-    let event = $('#event');
+let event = $('#event');
+let apiUrl = 'http://127.0.0.1:8000/api/events.json';
 
-    let apiUrl = 'http://127.0.0.1:8000/api/events.json';
-
+function loading(){
     fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results => {
-            if (results.length) {
-
-                //mise à blanc de la liste des évents
-                $(event).html("")
-                for (let result of results) {
-
-                    //Si le champ de saisie est vide on affiche tous les évènements
-                    if (name.value === "") {
-                        let variable = result['name'];
-                        let informations = result['informations'];
-                        let startingDate = result['startingDate'];
-                        let duration = result['duration'];
-                        let limit = result['limitInscribeDate'];
-                        let affluence = result['maxInscriptionsNumber'];
-                        let id = result['organisator']['id'];
-                        let campus = result['campus']['name'];
-                        let idEvent = result['id'];
-
-                        //Construction de l'évent
-                        $(event).append('<h2>' + "Name : " + variable + '</h2>',
-                            '<div>' + "Date & Hour : " + startingDate + '</div>',
-                            '<div>' + "Duration : " + duration + '</div>',
-                            '<div>' + "Inscription limit : " + limit + '</div>',
-                            '<div>' + "Max affluence : " + affluence + '</div>',
-                            '<div>' + "Informations : " + informations + '</div>',
-                            '<a href="user/' + id + '">' + result['organisator']['pseudo'] + '</a>',
-                            '<div>' + "Campus : " + campus + '</div>',
-                            '<a href="event/detail/' + idEvent + '"><button type="submit"> Détails </button></a>',
-                        )
-
-                    } else {
-
-                        //Si le champ de saisie contient EXACTEMENT la chaine de caractère, alors ca affiche l'évent
-                        if (result['name'] === name.value) {
-                            let variable = result['name'];
-                            let informations = result['informations'];
-                            let startingDate = result['startingDate'];
-                            let duration = result['duration'];
-                            let limit = result['limitInscribeDate'];
-                            let affluence = result['maxInscriptionsNumber'];
-                            let id = result['organisator']['id'];
-                            let campus = result['campus']['name'];
-
-                            //Construction de l'évent
-                            $(event).append('<h2>' + "Name : " + variable + '</h2>',
-                                '<div>' + "Date & Hour : " + startingDate + '</div>',
-                                '<div>' + "Duration : " + duration + '</div>',
-                                '<div>' + "Inscription limit : " + limit + '</div>',
-                                '<div>' + "Max affluence : " + affluence + '</div>',
-                                '<div>' + "Informations : " + informations + '</div>',
-                                '<a href="user/' + id + '">' + result['organisator']['pseudo'] + '</a>',
-                                '<div>' + "Campus : " + campus + '</div>',
-                                '<a href="event/detail/' + idEvent + '"><button type="submit"> Détails </button></a>',
-                            )
-                        }
-                    }
-                }
-            }
+        for (let result of results){
+            $(event).append('<h2>' + "Name : " + result['name'] + '</h2>',
+                '<div>' + "Date & Hour : " + result['startingDate'] + '</div>',
+                '<div>' + "Duration : " + result['duration'] + '</div>',
+                '<div>' + "Inscription limit : " + result['limitInscribeDate'] + '</div>',
+                '<div>' + "Max affluence : " + result['maxInscriptionsNumber'] + '</div>',
+                '<div>' + "Informations : " + result['informations'] + '</div>',
+                '<a href="user/' + result['organisator']['id'] + '">' + result['organisator']['pseudo'] + '</a>',
+                '<div>' + "Campus : " + result['campus']['name'] + '</div>',
+                '<a href="event/detail/' + result['id'] + '"><button type="submit"> Détails </button></a>',
+            )
         }
-    )
+    })
 }
 
+function maMethode() {
+    let campus = document.getElementById('campus');
+    let name = document.getElementById('name');
+
+    let dateStart = document.getElementById('dateStart').valueAsDate;
+    console.log(dateStart);
+    let dateEnd = document.getElementById('dateEnd').valueAsDate;
+    console.log(dateEnd);
+
+    if (dateStart === null){
+        dateStart = Date.now();
+        console.log(dateStart);
+    }
+
+    console.log(dateStart);
+    if(dateEnd === null){
+        dateEnd = Date.now()+ 86400 * 1000 * 365;
+        console.log(dateEnd);
+    }
+    console.log(dateEnd);
+
+    fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results => {
+
+    //mise à blanc de la liste des events
+    $(event).html("")
+    for (let result of results) {
+
+        let date = new Date(result['startingDate']).getTime();
+
+        if(result['name'].toLowerCase().includes(name.value.toLowerCase()) &&
+                result['campus']['name'].includes(campus.value) &&
+                date > dateStart && date < dateEnd){
+
+                //Construction de l'event
+                $(event).append('<h2>' + "Name : " + result['name'] + '</h2>',
+                    '<div>' + "Date & Hour : " + result['startingDate'] + '</div>',
+                    '<div>' + "Duration : " + result['duration'] + '</div>',
+                    '<div>' + "Inscription limit : " + result['limitInscribeDate'] + '</div>',
+                    '<div>' + "Max affluence : " + result['maxInscriptionsNumber'] + '</div>',
+                    '<div>' + "Informations : " + result['informations'] + '</div>',
+                    '<a href="user/' + result['organisator']['id'] + '">' + result['organisator']['pseudo'] + '</a>',
+                    '<div>' + "Campus : " + result['campus']['name'] + '</div>',
+                    '<a href="event/detail/' + result['id'] + '"><button type="submit"> Détails </button></a>',
+                )
+            }
+        }
+    })
+}
