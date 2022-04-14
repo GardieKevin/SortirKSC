@@ -4,41 +4,28 @@
 
     {% if not app.user %}
         <h2>Welcome to sortir.com</h2>
-        <h4>If you want to see the events organiszed by our KSC lovers<br> please connect you to our flying network!</h4>
+        <h4>If you want to see the events organised by our KSC lovers<br> please connect you to our flying network!</h4>
     {% endif %}
 
     {% if app.user %}
         <h2> Welcome back {{ app.user.firstname }} !</h2>
 
-                <div>
-                    <label for="name"></label>
-                    <input type="text" name="name" placeholder="Nom évènement" id="name">
-                    <div style="display: none" id="error-message"></div>
-                </div>
-                <button onclick="maMethode()">Search</button>
-                <div id="event"></div>
-
-
+        <div>
+            <label for="campus">Campus</label>
+            <input type="text" name="campus" placeholder="Campus" id="campus">
+            <label for="name">Name</label>
+            <input type="text" name="name" placeholder="Event name..." id="name">
+            <label for="dateStart">From</label>
+            <input type="date" name="dateStart" placeholder="Date" id="dateStart">
+            <label for="dateEnd">To</label>
+            <input type="date" name="dateEnd" placeholder="Date" id="dateEnd">
+            <div style="display: none" id="error-message"></div>
+        </div>
+        <button onclick="maMethode()">Search</button>
 
         <h3>Events list</h3>
-        <section>
-            {% for event in events %}
-                <article>
 
-                    <h4>{{ event.name }}</h4>
-                    <p>Organised by : <a href="{{ path('user_detail', {'id': event.organisator.id }) }}"> {{ event.organisator.pseudo }}</a></p>
-                    <p>Campus : {{ event.campus }}</p>
-                    <p>Date & Hour : {{ event.startingDate | date('d/m/Y - h:m' ) }}</p>
-                    <p>Inscription limit : {{ event.limitInscribeDate | date('d/m/Y & h:m' )  }}</p>
-                    <p>Max affluence : {{ event.maxInscriptionsNumber }} persons</p>
-                    <p>Description : {{ event.informations }}</p>
-                    <p>Status : {{ event.etat.libelle }}</p>
-                </article>
-
-
-
-            {% endfor %}
-        </section>
+        <div id="event"></div>
 
         <a href="{{ path('event_create') }}">
             <button value="create">Create an event</button>
