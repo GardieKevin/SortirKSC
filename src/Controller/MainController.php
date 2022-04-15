@@ -19,23 +19,22 @@ class MainController extends AbstractController
     #[Route('/', name: 'main_home')]
     public function home(
         EntityManagerInterface $entityManager,
-        EtatRepository  $etatRepository,
-        EventRepository $eventRepository,
+        EtatRepository         $etatRepository,
+        EventRepository        $eventRepository,
 //        Event           $event,
     ): Response
     {
 
-        $id=3;
+        $id = 3;
         $etat = $etatRepository->find($id);
 
         $events = $eventRepository->findAllEvents();
         foreach ($events as $e) {
             $eventDate = $e->getStartingDate();
-            $today=new \DateTime('now');
+            $today = new \DateTime('now');
             $limitDate = $e->getLimitInscribeDate();
 //            dd($date->modify('+ '.$e->getDuration().'days'));
-            if ($today> $eventDate)
-            {
+            if ($today > $eventDate) {
                 if ($today < $eventDate->modify('+ ' . $e->getDuration() . 'days')) {
                     $id = 4;
                     $etat = $etatRepository->find($id);
@@ -43,8 +42,7 @@ class MainController extends AbstractController
                     $e->setEtat($etat);
                     $entityManager->persist($e);
                     $entityManager->flush();
-                }
-                else{
+                } else {
                     $id = 5;
                     $etat = $etatRepository->find($id);
                     $e->setEtat($etat);
@@ -52,18 +50,14 @@ class MainController extends AbstractController
                     $entityManager->flush();
                 }
             }
-            if($today<$eventDate) {
-                if ($today < $limitDate)
-                {
+            if ($today < $eventDate) {
+                if ($today < $limitDate) {
                     $id = 2;
                     $etat = $etatRepository->find($id);
                     $e->setEtat($etat);
                     $entityManager->persist($e);
                     $entityManager->flush();
-                }
-
-                else
-                {
+                } else {
                     $id = 3;
                     $etat = $etatRepository->find($id);
                     $e->setEtat($etat);
@@ -76,4 +70,5 @@ class MainController extends AbstractController
             compact("events")
         );
     }
+}
 
