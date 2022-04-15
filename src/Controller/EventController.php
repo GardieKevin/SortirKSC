@@ -104,6 +104,21 @@ class EventController extends AbstractController
         return $this->redirectToRoute('user_index');
     }
 
+    #[Route('/event/{event}/remove/', name: 'event_remove')]
+    public function eventRemoveUser(
+        Event $event,
+        EventRepository $er,
+        UserRepository $ur,
+        EntityManagerInterface $em,
+    ): Response
+    {
+        $user = $ur->findOneBy(['pseudo'=>($this->getUser()->getUserIdentifier())]);
+        $event->removeParticipant($user);
+        $em->persist($event);
+        $em->flush($event);
+        return $this->redirectToRoute('user_index');
+    }
+
     //TODO suppression d'un évènement
     #[Route('/event/delete/{id}', name: 'event_delete')]
     public function delete(
