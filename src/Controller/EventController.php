@@ -6,6 +6,7 @@ use App\Entity\Event;
 use App\Entity\User;
 use App\Form\EventType;
 use App\Form\UserType;
+use App\Repository\EtatRepository;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
@@ -59,11 +60,11 @@ class EventController extends AbstractController
 
     #[Route('/event/detail/{id}', name: 'event_detail')]
     public function detail(
-
-        EventRepository $eventRepository,
         Event           $event
     ): Response
     {
+
+
         return $this->render('event/detail.html.twig',
             compact("event")
         );
