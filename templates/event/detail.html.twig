@@ -44,7 +44,9 @@
 
     <h4>Participants : </h4>
 
+    {% for participant in event.participants %}
+        <p>{{ participant.pseudo }}</p>
 
-
+    {% endfor %}
 {% endblock %}
 
