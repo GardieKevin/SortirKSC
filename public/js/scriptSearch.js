@@ -19,10 +19,34 @@ function display() {
 }
 
 function myMethod() {
+    let idUser = 1;
+    console.log(idUser);
+    if(document.getElementById("organisator").checked === true){
+        idUser = parseInt(document.getElementById('idUser').value);
+    }
+    console.log(idUser);
 
-    let name = document.getElementById('name');
+    let idParticipant = 0;
+    console.log(idParticipant);
+    if (document.getElementById("participant").checked === true){
+        idParticipant = parseInt(document.getElementById('idUser').value);
+    }
+    console.log(idParticipant);
+
+
     let campus = document.getElementById('campus');
-    let eventsSearched = [];
+    let name = document.getElementById('name');
+    let dateStart = document.getElementById('dateStart').valueAsDate;
+    let dateEnd = document.getElementById('dateEnd').valueAsDate;
+
+    let eventSearched = [];
+
+    if (dateStart === null) {
+        dateStart = Date.now();
+    }
+    if (dateEnd === null) {
+        dateEnd = Date.now() + 86400 * 1000 * 365;
+    }
 
     fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results => {
 
@@ -30,28 +54,20 @@ function myMethod() {
         $(event).html("")
 
         for (let result of results) {
+            let date = new Date(result['startingDate']).getTime();
 
-            if (result['name'].toLowerCase().includes(name.value.toLowerCase())) {
-                eventsSearched.push(result);
+            if (result['name'].toLowerCase().includes(name.value.toLowerCase()) &&
+                result['campus']['name'].includes(campus.value) &&
+                date > dateStart && date < dateEnd){
+                eventSearched.push(result);
             }
-
-            if (result['campus']['name'].includes(campus.value)){
-                eventsSearched.includes(result['id']);
-            }
-        }
-
-        for(let event of eventsSearched){
-            $('#event').append('<h2>' + "Name : " + event['name'] + '</h2>',
-                '<div>' + "Date & Hour : " + event['startingDate'] + '</div>',
-                '<div>' + "Duration : " + event['duration'] + '</div>',
-                '<div>' + "Inscription limit : " + event['limitInscribeDate'] + '</div>',
-                '<div>' + "Max affluence : " + event['maxInscriptionsNumber'] + '</div>',
-                '<div>' + "Informations : " + event['informations'] + '</div>',
-                '<a href="user/' + event['organisator']['id'] + '">' + event['organisator']['pseudo'] + '</a>',
-                '<div>' + "Campus : " + event['campus']['name'] + '</div>',
-                '<a href="event/detail/' + event['id'] + '"><button type="submit"> Détails </button></a>',)
         }
     })
+    console.log(eventSearched);
+
+    let resultat = eventSearched.filter(event => event.organisator.id === idReceived);
+    console.log(resultat);
+
 }
 
 
