@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\User;
+use mysql_xdevapi\RowResult;
 use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -44,9 +45,14 @@ class UserType extends AbstractType
             ->add('lastname', TextType::class,
                 ['label'=>'Surname :'])
             ->add('firstname', TextType::class,
+
                 ['label'=>'firstname :'])
             ->add('pseudo', TextType::class,
-            ['label'=>'Pseudo : '])
+
+                ['label'=>'firstname'])
+            ->add('pseudo', TextType::class,
+            ['label'=>'Pseudo'])
+
             ->add('phone', TextType::class,
                 ['label'=>'Phone :'])
             ->add('photo',FileType::class,
