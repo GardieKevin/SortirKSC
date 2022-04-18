@@ -43,13 +43,18 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('lastname', TextType::class,
-                ['label'=>'Surname '])
+                ['label'=>'Surname :'])
             ->add('firstname', TextType::class,
+
+                ['label'=>'firstname :'])
+            ->add('pseudo', TextType::class,
+
                 ['label'=>'firstname'])
             ->add('pseudo', TextType::class,
             ['label'=>'Pseudo'])
+
             ->add('phone', TextType::class,
-                ['label'=>'Phone'])
+                ['label'=>'Phone :'])
             ->add('photo',FileType::class,
                 ['label'=>'Avatar : ',
                     'mapped'=>false,
