@@ -19,56 +19,64 @@ function display() {
 }
 
 function myMethod() {
-    let idUser = 1;
-    console.log(idUser);
-    if(document.getElementById("organisator").checked === true){
-        idUser = parseInt(document.getElementById('idUser').value);
-    }
-    console.log(idUser);
 
-    let idParticipant = 0;
-    console.log(idParticipant);
-    if (document.getElementById("participant").checked === true){
-        idParticipant = parseInt(document.getElementById('idUser').value);
-    }
-    console.log(idParticipant);
+    fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results =>{
 
-
-    let campus = document.getElementById('campus');
-    let name = document.getElementById('name');
-    let dateStart = document.getElementById('dateStart').valueAsDate;
-    let dateEnd = document.getElementById('dateEnd').valueAsDate;
-
-    let eventSearched = [];
-
-    if (dateStart === null) {
-        dateStart = Date.now();
-    }
-    if (dateEnd === null) {
-        dateEnd = Date.now() + 86400 * 1000 * 365;
-    }
-
-    fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results => {
-
-        //mise à blanc de la liste des events
-        $(event).html("")
-
-        for (let result of results) {
-            let date = new Date(result['startingDate']).getTime();
-
-            if (result['name'].toLowerCase().includes(name.value.toLowerCase()) &&
-                result['campus']['name'].includes(campus.value) &&
-                date > dateStart && date < dateEnd){
-                eventSearched.push(result);
+        let eventsTaken = [];
+        let idUser;
+        if(document.getElementById("organisator").checked === true){
+            idUser = parseInt(document.getElementById('idUser').value);
+            for (let result of results){
+                if (idUser === result.organisator.id){
+                    console.log('je prends cet event')
+                    eventsTaken.push(result);
+                }
             }
         }
+        console.log(eventsTaken);
+
+
     })
-    console.log(eventSearched);
-
-    let resultat = eventSearched.filter(event => event.organisator.id === idReceived);
-    console.log(resultat);
-
 }
+
+let idParticipant;
+if (document.getElementById("participant").checked === true){
+    idParticipant = parseInt(document.getElementById('idUser').value);
+}
+console.log(idParticipant);
+
+let campus = document.getElementById('campus');
+let name = document.getElementById('name');
+let dateStart = document.getElementById('dateStart').valueAsDate;
+let dateEnd = document.getElementById('dateEnd').valueAsDate;
+
+let eventSearched = [];
+
+if (dateStart === null) {
+    dateStart = Date.now();
+}
+if (dateEnd === null) {
+    dateEnd = Date.now() + 86400 * 1000 * 365;
+}
+
+fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results => {
+
+    //mise à blanc de la liste des events
+    $(event).html("")
+
+    for (let result of results) { //TODO remplacer le result par event et results par le tableau eventsTaken
+        let date = new Date(result['startingDate']).getTime();
+
+        if (result['name'].toLowerCase().includes(name.value.toLowerCase())
+            && result['campus']['name'].includes(campus.value)
+            && date > dateStart
+            && date < dateEnd
+        ){
+            eventSearched.push(result);
+        }
+    }
+})
+console.log(eventSearched);
 
 
 //
