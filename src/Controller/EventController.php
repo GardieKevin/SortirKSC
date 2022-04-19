@@ -97,11 +97,13 @@ class EventController extends AbstractController
         EntityManagerInterface $em,
     ): Response
     {
-        $user = $ur->findOneBy(['pseudo'=>($this->getUser()->getUserIdentifier())]);
-        $event->addParticipant($user);
-        $em->persist($event);
-        $em->flush($event);
-        return $this->redirectToRoute('user_index');
+
+            $user = $ur->findOneBy(['pseudo' => ($this->getUser()->getUserIdentifier())]);
+            $event->addParticipant($user);
+            $em->persist($event);
+            $em->flush($event);
+            return $this->redirectToRoute('user_index');
+
     }
 
     #[Route('/event/{event}/remove/', name: 'event_remove')]

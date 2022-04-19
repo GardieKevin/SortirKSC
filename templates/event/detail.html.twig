@@ -28,10 +28,13 @@
     {% endif %}
 
     {% if app.user.id %}
+        {% if event.etat.Id is same as 2 %}
 
         <a href="{{ path('event_registration', {'event': event.id}) }}">
             <button value="registration">Registration to event</button>
         </a>
+
+            {% endif %}
     {% endif %}
 
     {% if app.user.pseudo is same as (event.organisator.pseudo) %}
