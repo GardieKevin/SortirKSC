@@ -18,30 +18,20 @@
             <label for="dateStart">From</label>
             <input type="datetime-local" name="dateStart" placeholder="Date" id="dateStart">
             <label for="dateEnd">To</label>
-            <input type="date" name="dateEnd" placeholder="Date" id="dateEnd">
+            <input type="datetime-local" name="dateEnd" placeholder="Date" id="dateEnd">
             <div style="display: none" id="error-message"></div>
-
             <input type="hidden" value="{{ app.user.id }}" id="idUser">
             <input type="checkbox" name="organisator" id="organisator">
-            <label for="organisator">Events which I am organisator</label>
-
-            <input type="checkbox" name="participant" id="participant" value="">
-            <label for="participant">Events which I am participant</label>
-
-
-            <input type="checkbox" name="notParticipant" id="notParticipant">
-            <label for="notParticipant">Events which I am NOT participant</label>
+            <label for="organisator">My events</label>
+            <input type="checkbox" name="participant" id="participant" onclick="notParticipantVisibility()">
+            <label for="participant" id="participantLabel">Events I'm inscribed</label>
+            <input type="checkbox" name="notParticipant" id="notParticipant" onclick="participantVisibility()">
+            <label for="notParticipant" id="notParticipantlabel">Events I'm not inscribed</label>
         </div>
 
         <button onclick="myMethod()">Search</button>
 
-        <h3>Events list</h3>
-
-        <div>
-
-
-
-        </div>
+        <h2>Events list</h2>
 
         <div id="event"></div>
 
