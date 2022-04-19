@@ -18,7 +18,7 @@
             <label for="dateStart">From</label>
             <input type="datetime-local" name="dateStart" placeholder="Date" id="dateStart">
             <label for="dateEnd">To</label>
-            <input type="date" name="dateEnd" placeholder="Date" id="dateEnd">
+            <input type="datetime-local" name="dateEnd" placeholder="Date" id="dateEnd">
             <div style="display: none" id="error-message"></div>
 
             <input type="hidden" value="{{ app.user.id }}" id="idUser">
@@ -35,7 +35,7 @@
 
         <button onclick="myMethod()">Search</button>
 
-        <h3>Events list</h3>
+        <h2>Events list</h2>
 
         <div id="event"></div>
 

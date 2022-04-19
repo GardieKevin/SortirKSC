@@ -62,6 +62,7 @@ class Event
     private $etat;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'eventsRegistrations')]
+    #[Groups("read")]
     private $participants;
 
     public function __construct()
