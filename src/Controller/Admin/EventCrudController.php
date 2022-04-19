@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\Event;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
+use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateTimeField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
@@ -26,10 +27,11 @@ class EventCrudController extends AbstractCrudController
             // IdField::new('id'),
             TextField::new('name'),
             DateTimeField::new('startingDate'),
-            TextField::new('duration'),
+            IntegerField::new('duration'),
             DateTimeField::new('limitInscribeDate'),
             IntegerField::new('maxInscriptionsNumber'),
             TextField::new('informations'),
+            AssociationField::new('etat')->setFormTypeOption('choice_label','libelle'),
         ];
     }
 }
