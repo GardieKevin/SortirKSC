@@ -58,50 +58,49 @@ function myMethod() {
 
             //Liste des events dont l'utilisateur est participant
 
+            console.log(idParticipant);
+            let eventsPart = [];
+            if (document.getElementById("participant").checked === true) {
+                idParticipant = parseInt(document.getElementById('idUser').value);
                 console.log(idParticipant);
-                let eventsPart = [];
-                if (document.getElementById("participant").checked === true) {
-                    idParticipant = parseInt(document.getElementById('idUser').value);
-                    console.log(idParticipant);
-                    for (let result of results) {
-                        console.log(result.participants);
-                        for (let participant of result.participants) {
-                            if (participant.id === idParticipant) {
-                                console.log(participant.id);
-                                eventsPart.push(result)
-                            }
+                for (let result of results) {
+                    console.log(result.participants);
+                    for (let participant of result.participants) {
+                        if (participant.id === idParticipant) {
+                            console.log(participant.id);
+                            eventsPart.push(result)
                         }
                     }
-                    console.log(eventsPart);
-                    eventsTaken = eventsPart;
                 }
-                console.log(eventsTaken);
+                console.log(eventsPart);
+                eventsTaken = eventsPart;
+            }
+            console.log(eventsTaken);
 
             // Liste des events dont l'utilisateur connecté est organisateur
-                let idUser;
-                let eventsTakenOrg = [];
-                if (document.getElementById("organisator").checked === true) {
-                    idUser = parseInt(document.getElementById('idUser').value);
-                    for (let result of eventsTaken) {
-                        if (idUser === result.organisator.id) {
-                            console.log('je prends cet event')
-                            eventsTakenOrg.push(result);
-                        }
+            let idUser;
+            let eventsTakenOrg = [];
+            if (document.getElementById("organisator").checked === true) {
+                idUser = parseInt(document.getElementById('idUser').value);
+                for (let result of eventsTaken) {
+                    if (idUser === result.organisator.id) {
+                        console.log('je prends cet event')
+                        eventsTakenOrg.push(result);
                     }
-                    eventsTaken = eventsTakenOrg;
-                    console.log(eventsTakenOrg);
                 }
-                console.log(eventsTaken);
+                eventsTaken = eventsTakenOrg;
+                console.log(eventsTakenOrg);
+            }
+            console.log(eventsTaken);
 
             // Si aucune checkbox est cochée, on prend tous les events disponibles dans la liste
-                if (document.getElementById("participant").checked === false
-                    && document.getElementById("organisator").checked === false
-                    && document.getElementById("notParticipant").checked === false)
-                {
-                    for (let result of results) {
-                        eventsTaken.push(result);
-                    }
+            if (document.getElementById("participant").checked === false
+                && document.getElementById("organisator").checked === false
+                && document.getElementById("notParticipant").checked === false) {
+                for (let result of results) {
+                    eventsTaken.push(result);
                 }
+            }
 
             // Suppression des doublons éventuels du tableau
             let uniqueEvents = [...new Set(eventsTaken)]
@@ -154,7 +153,6 @@ function myMethod() {
         }
     )
 }
-
 
 function participantVisibility() {
     if (document.getElementById('notParticipant').checked === true) {
