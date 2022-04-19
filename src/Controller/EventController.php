@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Etat;
 use App\Entity\Event;
 use App\Entity\User;
 use App\Form\EventType;
@@ -106,6 +107,7 @@ class EventController extends AbstractController
 
     }
 
+
     #[Route('/event/{event}/remove/', name: 'event_remove')]
     public function eventRemoveUser(
         Event $event,
@@ -118,6 +120,25 @@ class EventController extends AbstractController
         $event->removeParticipant($user);
         $em->persist($event);
         $em->flush($event);
+        return $this->redirectToRoute('user_index');
+    }
+
+    #[Route('/event/close/{id}', name: 'event_close')]
+    public function eventCloser(
+        Event $event,
+        EventRepository $er,
+        EtatRepository $etr,
+        EntityManagerInterface $em,
+        Request $request, $id
+    ): Response
+    {
+
+        $id2=6;
+        $etat=$etr->find($id2);
+        $event->setEtat($etat);
+//        dd($event);
+        $em->persist($event);
+        $em->flush();
         return $this->redirectToRoute('user_index');
     }
 
