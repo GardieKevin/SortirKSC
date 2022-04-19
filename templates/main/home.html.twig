@@ -25,12 +25,12 @@
             <input type="checkbox" name="organisator" id="organisator">
             <label for="organisator">Events which I am organisator</label>
 
-            <input type="checkbox" name="participant" id="participant" value="">
-            <label for="participant">Events which I am participant</label>
+            <input type="checkbox" name="participant" id="participant" onclick="notParticipantVisibility()">
+            <label for="participant" id="participantLabel">Events which I am participant</label>
 
 
-            <input type="checkbox" name="notParticipant" id="notParticipant">
-            <label for="notParticipant">Events which I am NOT participant</label>
+            <input type="checkbox" name="notParticipant" id="notParticipant" onclick="participantVisibility()">
+            <label for="notParticipant" id="notParticipantlabel">Events which I am NOT participant</label>
         </div>
 
         <button onclick="myMethod()">Search</button>

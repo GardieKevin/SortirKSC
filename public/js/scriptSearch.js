@@ -18,55 +18,87 @@ function display() {
     })
 }
 
+function Monfiltre(element, index, self) {
+    console.log(element);
+    console.log(index);
+    console.log(self);
+}
+
 function myMethod() {
 
     fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results => {
 
-            let eventsTaken = [];
+        let eventsTaken = [];
 
+        let idParticipant;
 
-            // Liste des events dont l'utilisateur est participant
-            let idParticipant;
-            console.log(idParticipant);
-            if (document.getElementById("participant").checked === true) {
-                idParticipant = parseInt(document.getElementById('idUser').value);
-            }
-            console.log(idParticipant);
+        //Liste des events dont l'utilisateur n'est pas participant
+        if (document.getElementById("notParticipant").checked === true){
+            idParticipant = parseInt(document.getElementById('idUser').value);
+        }
+        console.log(idParticipant);
 
-            for (let result of results) {
-                console.log(result.participants);
-                for (let participant of result.participants) {
-                    if (participant.id === idParticipant) {
-                        console.log(participant.id);
-                        eventsTaken.push(result)
-                    }
+        for (let result of results){
+            let count = 0;
+            for (let i = 0; i < result.participants.length; i++){
+
+                console.log(result.participants[i].id);
+                if (result.participants[i].id === idParticipant){
+                    count++;
                 }
             }
-            console.log(eventsTaken);
-
-            // Liste des events dont l'utilisateur connecté est organisateur
-            let idUser;
-            if (document.getElementById("organisator").checked === true) {
-                idUser = parseInt(document.getElementById('idUser').value);
-                for (let result of results) {
-                    if (idUser === result.organisator.id) {
-                        console.log('je prends cet event')
-                        eventsTaken.push(result);
-                    }
-                }
+            console.log(count);
+            if (count === 0){
+                eventsTaken.push(result);
             }
-            console.log(eventsTaken);
+        }
+        console.log(eventsTaken);
 
-            // Si aucune checkbox est cochée, on prend tous les events disponibles dans la liste
-            if (document.getElementById("participant").checked === false && document.getElementById("organisator").checked === false) {
-                for (let result of results) {
-                    eventsTaken.push(result);
-                }
-            }
+        // // Liste des events dont l'utilisateur est participant
+        //
+        //     console.log(idParticipant);
+        //     if (document.getElementById("participant").checked === true) {
+        //         idParticipant = parseInt(document.getElementById('idUser').value);
+        //     }
+        //     console.log(idParticipant);
+        //     for (let result of results) {
+        //         console.log(result.participants);
+        //         for (let participant of result.participants) {
+        //             if (participant.id === idParticipant) {
+        //                 console.log(participant.id);
+        //                 eventsTaken.push(result)
+        //             }
+        //         }
+        //     }
+        //     console.log(eventsTaken);
+
+            // // Liste des events dont l'utilisateur connecté est organisateur
+            // let idUser;
+            // let uniqueEventsOrganised = [];
+            // if (document.getElementById("organisator").checked === true) {
+            //     idUser = parseInt(document.getElementById('idUser').value);
+            //     for (let result of uniqueEventsTaken) {
+            //         if (idUser === result.organisator.id) {
+            //             console.log('je prends cet event')
+            //             uniqueEventsOrganised.push(result);
+            //         }
+            //     }
+            // }
+            // console.log(uniqueEventsOrganised);
+
+            // // Si aucune checkbox est cochée, on prend tous les events disponibles dans la liste
+            // if (document.getElementById("participant").checked === false
+            //     && document.getElementById("organisator").checked === false
+            //     && document.getElementById("notParticipant").checked === false)
+            // {
+            //     for (let result of results) {
+            //         eventsTaken.push(result);
+            //     }
+            // }
 
             // Suppression des doublons éventuels du tableau
-            let uniqueEventsTaken = [...new Set(eventsTaken)]
-            console.log(uniqueEventsTaken);
+            let uniqueEvents = [...new Set(eventsTaken)]
+            console.log(uniqueEvents);
 
             // on précise la recherche avec les inputs renseignés manuellement par l'utilisateur
             let campus = document.getElementById('campus');
@@ -85,7 +117,7 @@ function myMethod() {
                 dateEnd = Date.now() + 86400 * 1000 * 365;
             }
 
-            for (let event of uniqueEventsTaken) {
+            for (let event of uniqueEvents) {
                 let date = new Date(event['startingDate']).getTime();
 
                 if (event['name'].toLowerCase().includes(name.value.toLowerCase())
@@ -114,6 +146,29 @@ function myMethod() {
             }
         }
     )
+}
+
+
+function participantVisibility(){
+    if (document.getElementById('notParticipant').checked === true){
+        document.getElementById('participant').style.visibility = "hidden";
+        document.getElementById('participantLabel').style.visibility = "hidden";
+    }
+    else{
+        document.getElementById('participant').style.visibility = "visible";
+        document.getElementById('participantLabel').style.visibility = "visible";
+    }
+}
+
+function notParticipantVisibility(){
+    if (document.getElementById('participant').checked === true){
+        document.getElementById('notParticipant').style.visibility = "hidden";
+        document.getElementById('notParticipantlabel').style.visibility = "hidden";
+    }
+    else{
+        document.getElementById('notParticipant').style.visibility = "visible";
+        document.getElementById('notParticipantlabel').style.visibility = "visible";
+    }
 }
 
 //TODO vérifier le fonctionnement des dates (bizarre)
