@@ -37,7 +37,7 @@
             {% endif %}
     {% endif %}
 
-    {% if app.user.pseudo is same as (event.organisator.pseudo) %}
+    {% if app.user.pseudo %}
 
         <a href="{{ path('event_remove', {'event': event.id}) }}">
             <button value="remove">Unsubscribe to event</button>
