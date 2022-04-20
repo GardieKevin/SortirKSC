@@ -2,7 +2,7 @@ let coordonneesX = null;
 let coordonneesY = null;
 $(document).ready(function () {
     let apiUrl = 'https://geo.api.gouv.fr/communes?codePostal=';
-    const formatPostcode = '&format=json' + '&boost=population&limit=3';
+    const formatPostcode = '&format=json' + '&limit=5';
     let searchPostCode = $('#searchPostCode');
     let postcode = $('#postcode')
     let errorMessage = $('error-message');
@@ -40,7 +40,7 @@ $(document).ready(function () {
     });
 
     let apiUrlStreet = 'https://api-adresse.data.gouv.fr/search/?q=';
-    const formatStreet = '&format=json';
+    const formatStreet = '&format=json&boost=population&limit=3';
     let searchStreet = $('#searchStreet');
     let street = $('#street');
     let coordonneeX = $('#coordonneesX');
