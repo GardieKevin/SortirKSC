@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Campus;
+use App\Form\CampusType;
 use App\Repository\CampusRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,4 +38,24 @@ class CampusController extends AbstractController
 
         return $this->redirectToRoute('main_home');
     }
+
+    #[Route('/campus/modify/{id}', name: 'campus_modify', requirements: ['id' => '^\d+'], methods: ['GET', 'POST'])]
+    public function modify(
+        int             $id,
+        Request         $request,
+        Campus           $campus,
+        CampusRepository $cr,
+    ): Response
+    {
+        $campus = $cr->find($id);
+        $campusForm = $this->createForm(CampusType::class, $campus);
+        $campusForm->handleRequest($request);
+
+        $cr->add($campus);
+
+        return $this->renderForm('campus/modify.html.twig',
+            compact("campus", "campusForm")
+        );
+    }
+
 }

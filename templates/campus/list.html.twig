@@ -12,6 +12,9 @@
                 <a href="{{ path('campus_delete', {'id': choice.id}) }}">
                     <button value="remove">Delete</button>
                 </a>
+                <a href="{{ path('campus_modify', {'id': choice.id }) }}">
+                    <button value="modify">Modify</button>
+                </a>
             </article>
         {% endfor %}
 
