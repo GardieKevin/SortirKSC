@@ -24,14 +24,14 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
+            /*->add('name')
             ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label'=> 'name'])
             ->add('startingDate')
             ->add('duration')
             ->add('limitInscribeDate')
             ->add('maxInscriptionsNumber')
             ->add('informations')
-            ->add('etat',EntityType::class, ['class'=>Etat::class, 'choice_label'=>'libelle'] )
+            ->add('etat',EntityType::class, ['class'=>Etat::class, 'choice_label'=>'libelle'] )*/
 
         ;
     }
