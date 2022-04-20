@@ -74,7 +74,6 @@ class EventController extends AbstractController
     ): Response
     {
 
-
         return $this->render('event/detail.html.twig',
             compact("event")
         );
@@ -107,15 +106,14 @@ class EventController extends AbstractController
         EntityManagerInterface $em,
     ): Response
     {
-
             $user = $ur->findOneBy(['pseudo' => ($this->getUser()->getUserIdentifier())]);
             $event->addParticipant($user);
+
             $em->persist($event);
             $em->flush($event);
             return $this->redirectToRoute('user_index');
 
     }
-
 
     #[Route('/event/{event}/remove/', name: 'event_remove')]
     public function eventRemoveUser(
@@ -151,7 +149,6 @@ class EventController extends AbstractController
         return $this->redirectToRoute('user_index');
     }
 
-    //TODO suppression d'un évènement
     #[Route('/event/delete/{id}', name: 'event_delete')]
     public function delete(
         Event $event,
