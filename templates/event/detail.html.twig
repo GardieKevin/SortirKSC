@@ -9,11 +9,11 @@
     <p>Duration : {{ event.duration }} minutes</p>
     <p>Description & informations : {{ event.informations }}</p>
     <p>Campus : {{ event.campus }}</p>
-    <p>Place : </p>
-    <p>Street : </p>
-    <p>CP : </p>
-    <p>Latitude : </p>
-    <p>longitude : </p>
+    <p>City : {{ event.city }}</p>
+    <p>Street : //TODO faire une recherche sur une map</p>
+    <p>CP : {{ event.postcode }}</p>
+    <p>Latitude :  //TODO Faisable pour une recherche d'adresse precise uniquement</p>
+    <p>longitude : //TODO Faisable pour une recherche d'adresse precise uniquement</p>
 
     {% if app.user.pseudo is same as (event.organisator.pseudo) %}
         <a href="{{ path('event_modify', {'id': event.id }) }}">
