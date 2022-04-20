@@ -77,7 +77,7 @@ class MainController extends AbstractController
                     }
                 }
 
-                if($today > $eventDate->modify( '+' .$archiveDate))
+                if($today> $eventDate->modify( '+' .$archiveDate))
                 {
                     $id = 7;
                     $etat = $etatRepository->find($id);
