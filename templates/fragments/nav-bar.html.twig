@@ -8,8 +8,7 @@
 
         {% if app.user.administrator %}
             <a class="nav-item" href="{{ path('app_register') }}">Register a user</a>
-            <a class="nav-item">Cities</a>
-            <a class="nav-item">Campus</a>
+            <a class="nav-item" href="{{ path('campus_list') }}">Campus</a>
             <a class="nav-item" href="{{ path('admin') }}">Dashboard</a>
         {% endif %}
     {% endif %}
