@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\City;
+use App\Entity\Etat;
 use App\Entity\Event;
 use App\Entity\Place;
 use App\Entity\User;
@@ -106,12 +107,15 @@ class EventController extends AbstractController
         EntityManagerInterface $em,
     ): Response
     {
-        $user = $ur->findOneBy(['pseudo'=>($this->getUser()->getUserIdentifier())]);
-        $event->addParticipant($user);
-        $em->persist($event);
-        $em->flush($event);
-        return $this->redirectToRoute('user_index');
+
+            $user = $ur->findOneBy(['pseudo' => ($this->getUser()->getUserIdentifier())]);
+            $event->addParticipant($user);
+            $em->persist($event);
+            $em->flush($event);
+            return $this->redirectToRoute('user_index');
+
     }
+
 
     #[Route('/event/{event}/remove/', name: 'event_remove')]
     public function eventRemoveUser(
@@ -125,6 +129,25 @@ class EventController extends AbstractController
         $event->removeParticipant($user);
         $em->persist($event);
         $em->flush($event);
+        return $this->redirectToRoute('user_index');
+    }
+
+    #[Route('/event/close/{id}', name: 'event_close')]
+    public function eventCloser(
+        Event $event,
+        EventRepository $er,
+        EtatRepository $etr,
+        EntityManagerInterface $em,
+        Request $request, $id
+    ): Response
+    {
+
+        $id2=6;
+        $etat=$etr->find($id2);
+        $event->setEtat($etat);
+//        dd($event);
+        $em->persist($event);
+        $em->flush();
         return $this->redirectToRoute('user_index');
     }
 

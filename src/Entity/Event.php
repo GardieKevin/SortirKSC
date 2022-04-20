@@ -62,6 +62,7 @@ class Event
     private $etat;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'eventsRegistrations')]
+    #[Groups("read")]
     private $participants;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
