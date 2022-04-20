@@ -65,6 +65,9 @@ class Event
     #[Groups("read")]
     private $participants;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $city;
+
     public function __construct()
     {
         $this->participants = new ArrayCollection();
@@ -206,6 +209,18 @@ class Event
     public function removeParticipant(User $participant): self
     {
         $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    public function getCity(): ?string
+    {
+        return $this->city;
+    }
+
+    public function setCity(?string $city): self
+    {
+        $this->city = $city;
 
         return $this;
     }

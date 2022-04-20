@@ -2,16 +2,20 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Entity\Etat;
 use App\Entity\Event;
+use App\Entity\Place;
 use App\Entity\User;
 use App\Form\EventType;
 use App\Form\UserType;
+use App\Repository\CityRepository;
 use App\Repository\EtatRepository;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,25 +34,30 @@ class EventController extends AbstractController
 
     #[Route('/create', name: 'event_create')]
     public function create(
-
         Request                $request,
         EntityManagerInterface $em,
         UserRepository         $ur,
-
+        CityRepository         $cr,
     ): Response
     {
         $event = new Event();
-
         $user = $this->getUser();
+
         $currentUser = $ur->findOneBy(['pseudo' => $user->getUserIdentifier()]);
+
         $event->setOrganisator($currentUser);
+
         $eventForm = $this->createForm(EventType::class, $event);
         $eventForm->handleRequest($request);
 
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
-
+            $city = new City();
+            $city->setName($request->get('city'));
+            $city->setPostcode($request->get('postcode'));
+            $cr->add($city);
             $em->persist($event);
             $em->flush();
+
             $this->addFlash('info', 'Event successfully created !');
             return $this->redirectToRoute('main_home');
         }
@@ -64,7 +73,6 @@ class EventController extends AbstractController
         Event           $event
     ): Response
     {
-
 
         return $this->render('event/detail.html.twig',
             compact("event")
@@ -98,15 +106,14 @@ class EventController extends AbstractController
         EntityManagerInterface $em,
     ): Response
     {
-
             $user = $ur->findOneBy(['pseudo' => ($this->getUser()->getUserIdentifier())]);
             $event->addParticipant($user);
+
             $em->persist($event);
             $em->flush($event);
             return $this->redirectToRoute('user_index');
 
     }
-
 
     #[Route('/event/{event}/remove/', name: 'event_remove')]
     public function eventRemoveUser(
@@ -142,7 +149,6 @@ class EventController extends AbstractController
         return $this->redirectToRoute('user_index');
     }
 
-    //TODO suppression d'un évènement
     #[Route('/event/delete/{id}', name: 'event_delete')]
     public function delete(
         Event $event,
