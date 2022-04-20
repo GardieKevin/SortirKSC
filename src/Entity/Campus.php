@@ -27,6 +27,9 @@ class Campus
     #[ORM\OneToMany(mappedBy: 'campus', targetEntity: Event::class)]
     private $events;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $postcode;
+
     public function __construct()
     {
         $this->attachedTo = new ArrayCollection();
@@ -112,6 +115,18 @@ class Campus
                 $event->setCampus(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPostcode(): ?string
+    {
+        return $this->postcode;
+    }
+
+    public function setPostcode(?string $postcode): self
+    {
+        $this->postcode = $postcode;
 
         return $this;
     }
