@@ -22,7 +22,6 @@ class Etat
     private $libelle ;
 
     #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Event::class)]
-    #[Groups("read")]
     private $events;
 
     public function __construct()

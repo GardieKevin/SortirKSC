@@ -12,7 +12,7 @@ function display() {
                 '<div>' + "Informations : " + result['informations'] + '</div>',
                 '<a href="user/' + result['organisator']['id'] + '">' + result['organisator']['pseudo'] + '</a>',
                 '<div>' + "Campus : " + result['campus']['name'] + '</div>',
-                '<a href="event/detail/' + result['id'] + '"><button type="submit"> Détails </button></a>',
+                '<a href="event/detail/' + result['id'] + '"><button type="submit"> Détails </button></a>'
             )
         }
     })
