@@ -4,16 +4,21 @@ let apiUrl = 'http://127.0.0.1:8000/api/events.json';
 function display() {
     fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results => {
         for (let result of results) {
-            $(div).append('<h3>' + "Name : " + result['name'] + '</h3>',
-                '<div>' + "Date & Hour : " + result['startingDate'] + '</div>',
-                '<div>' + "Duration : " + result['duration'] + '</div>',
-                '<div>' + "Inscription limit : " + result['limitInscribeDate'] + '</div>',
-                '<div>' + "Max affluence : " + result['maxInscriptionsNumber'] + '</div>',
-                '<div>' + "Informations : " + result['informations'] + '</div>',
-                '<a href="user/' + result['organisator']['id'] + '">' + result['organisator']['pseudo'] + '</a>',
-                '<div>' + "Campus : " + result['campus']['name'] + '</div>',
-                '<a href="event/detail/' + result['id'] + '"><button type="submit"> Détails </button></a>'
-            )
+
+            if (result['etat']['id'] !== 7) {
+
+                $(div).append('<h3>' + "Name : " + result['name'] + '</h3>',
+                    '<div>' + "Date & Hour : " + result['startingDate'] + '</div>',
+                    '<div>' + "Duration : " + result['duration'] + '</div>',
+                    '<div>' + "Inscription limit : " + result['limitInscribeDate'] + '</div>',
+                    '<div>' + "Max affluence : " + result['maxInscriptionsNumber'] + '</div>',
+                    '<div>' + "Informations : " + result['informations'] + '</div>',
+                    '<a href="user/' + result['organisator']['id'] + '">' + result['organisator']['pseudo'] + '</a>',
+                    '<div>' + "Campus : " + result['campus']['name'] + '</div>',
+                    '<a href="event/detail/' + result['id'] + '"><button type="submit"> Détails </button></a>'
+                )
+            }
+
         }
     })
 }
