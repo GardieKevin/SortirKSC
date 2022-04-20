@@ -2,15 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\City;
 use App\Entity\Event;
+use App\Entity\Place;
 use App\Entity\User;
 use App\Form\EventType;
 use App\Form\UserType;
+use App\Repository\CityRepository;
 use App\Repository\EtatRepository;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,25 +33,30 @@ class EventController extends AbstractController
 
     #[Route('/create', name: 'event_create')]
     public function create(
-
         Request                $request,
         EntityManagerInterface $em,
         UserRepository         $ur,
-
+        CityRepository         $cr,
     ): Response
     {
         $event = new Event();
-
         $user = $this->getUser();
+
         $currentUser = $ur->findOneBy(['pseudo' => $user->getUserIdentifier()]);
+
         $event->setOrganisator($currentUser);
+
         $eventForm = $this->createForm(EventType::class, $event);
         $eventForm->handleRequest($request);
 
         if ($eventForm->isSubmitted() && $eventForm->isValid()) {
-
+            $city = new City();
+            $city->setName($request->get('city'));
+            $city->setPostcode($request->get('postcode'));
+            $cr->add($city);
             $em->persist($event);
             $em->flush();
+
             $this->addFlash('info', 'Event successfully created !');
             return $this->redirectToRoute('main_home');
         }

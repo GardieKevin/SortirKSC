@@ -4,11 +4,18 @@ namespace App\Form;
 
 
 use App\Entity\Campus;
+use App\Entity\City;
 use App\Entity\Etat;
 use App\Entity\Event;
 use App\Entity\User;
+use Doctrine\DBAL\Types\TextType;
+use Doctrine\ORM\Mapping\Entity;
+use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 

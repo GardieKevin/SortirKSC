@@ -5,11 +5,11 @@
     <div>
         <h1>Create an event</h1>
     </div>
-
     <div>
         {{ form_start(myForm) }}
         {{ form_widget(myForm) }}
-        <button>Submit</button>
+{% include 'city/index.html.twig' %}
+        <button type="submit">Envoyer</button>
         {{ form_end(myForm) }}
     </div>
 
