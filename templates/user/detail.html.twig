@@ -27,7 +27,7 @@
         <p>Activ member : {{ user.activ }}</p>
 
         {% if app.user.id is same as user.id %}
-        <button type="submit" ><a href="{{ path('user_edit', {'id': app.user.id }) }}">Modify </button>
+            <button type="submit" ><a href="{{ path('user_edit', {'id': app.user.id }) }}">Modify </a></button>
         {% endif %}
 {% endblock %}
 
