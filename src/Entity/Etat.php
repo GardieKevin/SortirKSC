@@ -6,6 +6,7 @@ use App\Repository\EtatRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: EtatRepository::class)]
 class Etat
@@ -13,12 +14,15 @@ class Etat
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
+    #[Groups("read")]
     private $id;
 
     #[ORM\Column(type: 'string', length: 20)]
+    #[Groups("read")]
     private $libelle ;
 
     #[ORM\OneToMany(mappedBy: 'etat', targetEntity: Event::class)]
+    #[Groups("read")]
     private $events;
 
     public function __construct()

@@ -59,6 +59,7 @@ class Event
 
     #[ORM\ManyToOne(targetEntity: Etat::class, inversedBy: 'events')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups("read")]
     private $etat;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'eventsRegistrations')]
