@@ -42,6 +42,7 @@ class CampusController extends AbstractController
     #[Route('/campus/modify/{id}', name: 'campus_modify', requirements: ['id' => '^\d+'], methods: ['GET', 'POST'])]
     public function modify(
         int             $id,
+        EntityManagerInterface $em,
         Request         $request,
         Campus           $campus,
         CampusRepository $cr,
@@ -53,9 +54,17 @@ class CampusController extends AbstractController
 
         $cr->add($campus);
 
+        if ($campusForm->isSubmitted() && $campusForm->isValid()){
+            $em->persist($campus);
+            $em->flush();
+            return $this->redirectToRoute('campus_list');
+        }
+
         return $this->renderForm('campus/modify.html.twig',
             compact("campus", "campusForm")
         );
+
     }
+
 
 }
