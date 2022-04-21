@@ -2,10 +2,8 @@
 
 namespace App\Controller;
 
-use App\Entity\ResetPasswordRequest;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
-use App\Repository\ResetPasswordRequestRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;

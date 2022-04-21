@@ -13,8 +13,7 @@ class CampusType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('postcode')
-        ;
+            ->add('postcode');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

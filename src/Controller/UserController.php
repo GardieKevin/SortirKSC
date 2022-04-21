@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -12,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class UserController extends AbstractController
@@ -24,10 +24,34 @@ class UserController extends AbstractController
 
     }
 
+    #[Route('/users', name: 'user_list')]
+    public function list(
+        UserRepository  $userRepository
+    ): Response
+    {
+        $listeUsers = $userRepository->findAll();
+        return $this->render('user/list.html.twig',
+            compact("listeUsers"));
+
+    }
+
+    #[Route('/user/delete/{id}', name: 'user_delete')]
+    public function delete(
+        EntityManagerInterface $em,
+        Request $id
+    ): Response
+    {
+        $userRepository = $em->getRepository(User::class);
+        $user = $userRepository->find($id);
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('main_home');
+    }
+
     #[Route('/user/{id}', name: 'user_detail')]
     public function detail(
         int            $id,
-        User           $user,
         UserRepository $ur
     ): Response
     {
@@ -44,7 +68,6 @@ class UserController extends AbstractController
     public function edit(
         Int            $id,
         Request        $request,
-        User           $user,
         UserRepository $ur,
         SluggerInterface $slugger,
         UserPasswordHasherInterface $userPasswordHasher
