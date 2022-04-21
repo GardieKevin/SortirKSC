@@ -44,6 +44,7 @@ class CampusController extends AbstractController
         int             $id,
         EntityManagerInterface $em,
         Request         $request,
+        Campus           $campus,
         CampusRepository $cr,
     ): Response
     {
@@ -62,5 +63,6 @@ class CampusController extends AbstractController
         return $this->renderForm('campus/modify.html.twig',
             compact("campus", "campusForm")
         );
+    }
     }
 }
