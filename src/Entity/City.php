@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
+use JetBrains\PhpStorm\Pure;
 
 #[ORM\Entity(repositoryClass: CityRepository::class)]
 #[ApiResource]
@@ -23,12 +24,15 @@ class City
     #[ORM\Column(type: 'string', length: 5)]
     private $postcode;
 
-    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Place::class)]
-    private $place;
+    #[ORM\OneToMany(mappedBy: 'city', targetEntity: Event::class)]
+    private $events;
 
-    public function __construct()
+    #[ORM\Column(type: 'string', length: 255)]
+    private $street;
+
+    #[Pure] public function __construct()
     {
-        $this->place = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -61,31 +65,43 @@ class City
     }
 
     /**
-     * @return Collection<int, Place>
+     * @return Collection<int, Event>
      */
-    public function getPlace(): Collection
+    public function getEvents(): Collection
     {
-        return $this->place;
+        return $this->events;
     }
 
-    public function addPlace(Place $place): self
+    public function addEvent(Event $event): self
     {
-        if (!$this->place->contains($place)) {
-            $this->place[] = $place;
-            $place->setCity($this);
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setCity($this);
         }
 
         return $this;
     }
 
-    public function removePlace(Place $place): self
+    public function removeEvent(Event $event): self
     {
-        if ($this->place->removeElement($place)) {
+        if ($this->events->removeElement($event)) {
             // set the owning side to null (unless already changed)
-            if ($place->getCity() === $this) {
-                $place->setCity(null);
+            if ($event->getCity() === $this) {
+                $event->setCity(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getStreet(): ?string
+    {
+        return $this->street;
+    }
+
+    public function setStreet(string $street): self
+    {
+        $this->street = $street;
 
         return $this;
     }

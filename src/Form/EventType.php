@@ -32,7 +32,6 @@ class EventType extends AbstractType
             ->add('maxInscriptionsNumber')
             ->add('informations')
             ->add('etat',EntityType::class, ['class'=>Etat::class, 'choice_label'=>'libelle'] )
-
         ;
     }
 

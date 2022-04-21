@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Campus list</h1>
+
+        {% for choice in campus %}
+            <article>
+                <div>{{ choice.id }}</div>
+                <div>{{ choice.name }}</div>
+                <div>{{ choice.postcode }}</div>
+                <a href="{{ path('campus_delete', {'id': choice.id}) }}">
+                    <button value="remove">Delete</button>
+                </a>
+                <a href="{{ path('campus_modify', {'id': choice.id }) }}">
+                    <button value="modify">Modify</button>
+                </a>
+            </article>
+        {% endfor %}
+
+{% endblock %}

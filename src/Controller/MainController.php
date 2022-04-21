@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Campus;
 use App\Entity\Event;
+use App\Repository\CampusRepository;
 use App\Repository\EtatRepository;
 use App\Repository\EventRepository;
 use Doctrine\ORM\EntityManager;
@@ -16,14 +18,17 @@ use function Sodium\add;
 
 class MainController extends AbstractController
 {
+
     #[Route('/', name: 'main_home')]
     public function home(
         EntityManagerInterface $entityManager,
         EtatRepository         $etatRepository,
         EventRepository        $eventRepository,
-//        Event           $event,
+        CampusRepository        $campusRepository,
+
     ): Response
     {
+        $listecampus = $campusRepository->findAll();
 
         $id = 3;
         $etat = $etatRepository->find($id);
@@ -104,7 +109,7 @@ class MainController extends AbstractController
                 }
 
         return $this->render('main/home.html.twig',
-            compact("events")
+            compact("events", "listecampus")
         );
     }
 }

@@ -3,19 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\City;
-use App\Entity\Etat;
 use App\Entity\Event;
-use App\Entity\Place;
-use App\Entity\User;
 use App\Form\EventType;
-use App\Form\UserType;
 use App\Repository\CityRepository;
 use App\Repository\EtatRepository;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,7 +49,9 @@ class EventController extends AbstractController
             $city = new City();
             $city->setName($request->get('postcode'));
             $city->setPostcode($request->get('searchPostCode'));
+            $city->setStreet($request->get('street'));
             $cr->add($city);
+            $event->setCity($city);
             $em->persist($event);
             $em->flush();
 
@@ -83,9 +79,10 @@ class EventController extends AbstractController
     #[Route('/event/modify/{id}', name: 'event_modify', requirements: ['id' => '^\d+'], methods: ['GET', 'POST'])]
     public function modify(
         int             $id,
+        EntityManagerInterface $em,
         Request         $request,
-        Event           $event,
         EventRepository $er,
+        CityRepository         $cr
     ): Response
     {
         $event = $er->find($id);
@@ -93,6 +90,18 @@ class EventController extends AbstractController
         $eventForm->handleRequest($request);
 
         $er->add($event);
+
+        if ($eventForm->isSubmitted() && $eventForm->isValid()){
+            $city = new City();
+            $city->setName($request->get('postcode'));
+            $city->setPostcode($request->get('searchPostCode'));
+            $city->setStreet($request->get('street'));
+            $cr->add($city);
+            $event->setCity($city);
+            $em->persist($event);
+            $em->flush();
+            return $this->redirectToRoute('main_home');
+        }
 
         return $this->renderForm('event/modify.html.twig',
             compact("event", "eventForm")
