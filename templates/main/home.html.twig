@@ -19,8 +19,19 @@
                     <div class="title">
                     <h2> Welcome back {{ app.user.firstname }} !</h2>
                     </div>
+
                     <label for="campus">Campus</label>
+                   <select name="campus" id="campus">
+                       <option value=""></option>
+                       {% for choice in listecampus %}
+                           <option value="{{ choice.name }}">{{ choice.name }}</option>
+                       {% endfor %}
+                   </select>
+
+
                     <input type="text" name="campus" placeholder="Campus" id="campus">
+
+
                     <label for="name">Name</label>
                     <input type="text" name="name" placeholder="Event name..." id="name">
                     <label for="dateStart">From</label>
