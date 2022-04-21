@@ -30,11 +30,12 @@
                 {% endif %}
 
 
-
+                {% if app.user.administrator %}
                 <a href="{{ path('user_delete', {'id': user.id}) }}">
                     <button value="remove">Delete</button>
                 </a>
-            </div>
+                {% endif %}
+
         </div>
         </article>
     {% endfor %}
@@ -46,6 +47,3 @@
     </article>
 
 {% endblock %}
-
-
-
