@@ -113,23 +113,24 @@ function myMethod() {
             let campus = document.getElementById('campus');
             let name = document.getElementById('name');
             let dateStart = Date.parse(document.getElementById('dateStart').value);
-            console.log(dateStart);
-            let dateEnd = Date.parse(document.getElementById('dateEnd').value);
-            console.log(dateEnd);
+        console.log(dateStart);
+        let dateEnd = Date.parse(document.getElementById('dateEnd').value);
+        console.log(dateEnd);
 
             let eventSearched = [];
 
-            if (dateStart === null) {
+            if (isNaN(dateStart) ) {
                 dateStart = Date.now();
                 console.log(dateStart);
             }
-            if (dateEnd === null) {
+            if (isNaN(dateEnd)) {
                 dateEnd = Date.now() + 86400 * 1000 * 365;
                 console.log(dateEnd);
             }
 
             for (let event of uniqueEvents) {
                 let date = new Date(event['startingDate']).getTime();
+                console.log(date);
 
                 if (event['name'].toLowerCase().includes(name.value.toLowerCase())
                     && event['campus']['name'].includes(campus.value)
