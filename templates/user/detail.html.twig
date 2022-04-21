@@ -1,34 +1,54 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Welcome {{ app.user.pseudo }} !</h1>
-    <script>
-        function display_image(src, width, height, alt) {
-            var a = document.createElement("img");
-            a.src = "{{ asset('pictures/photos/' ~user.image )}}";
-            // a.width = 200;
-            a.height = 150;
-            a.alt = "Avatar";
-            document.body.appendChild(a);
-        }
-        display_image('JavaScript.jpg',
-            276,
-            110,
-            'JavaScriptImage');
-    </script>
+    <div class="card">
+    <div class="columns is-centered">
+        <div class="column">
+            <h1 class="title">Welcome {{ app.user.pseudo }} !</h1>
+            <script>
+                function display_image(src, width, height, alt) {
+                    let a = document.createElement("img");
+                    a.src = "{{ asset('pictures/photos/' ~user.image ) }}";
+                    a.width = 200;
+                    a.height = 150;
+                    a.style.cssText = 'height:20%;width:20%';
+                    a.alt = "Avatar";
+                    let child = document.getElementById('avatar');
+                    child.append(a);
+                }
+            </script>
+            <div class="card-image" id="avatar">
+                <script>
+                    display_image('JavaScript.jpg',
+                        276,
+                        110,
+                        'JavaScriptImage');
+                </script>
+            </div>
+            <div class="media-content">
+                <p class="title is-4">{{ user.firstname }} {{ user.lastname }}</p>
+            </div>
+            {# src="{{ asset('pictures/photos/' ~user.image )}}" alt="image-de-profil" height="200" </script> #}
+            <div class="content" >
+                <p style="margin-bottom: 0 !important">Pseudo : {{ user.pseudo }}</p>
+                <p style="margin-bottom: 0 !important">Email : {{ user.email }}</p>
+                <p style="margin-bottom: 0 !important">Phone number : {{ user.phone }}</p>
+                {% if app.user.administrator %}
+                <p style="margin-bottom: 0 !important">Activ member : {{ user.activ }}</p>
+                {% endif %}
+                <br>
+            </div>
 
 
-        {#src="{{ asset('pictures/photos/' ~user.image )}}" alt="image-de-profil" height="200" </script>#}
-        <p>Firstname : {{ user.firstname }}</p>
-        <p>Lastname : {{ user.lastname }}</p>
-        <p>Pseudo : {{ user.pseudo }}</p>
-        <p>Email : {{ user.email }}</p>
-        <p>Phone number : {{ user.phone }}</p>
-        <p>Activ member : {{ user.activ }}</p>
 
-        {% if app.user.id is same as user.id %}
-            <button type="submit" ><a href="{{ path('user_edit', {'id': app.user.id }) }}">Modify </a></button>
-        {% endif %}
+
+            {% if app.user.id is same as user.id %}
+                <button class="button" type="submit"><a href="{{ path('user_edit', {'id': app.user.id }) }}">Modify</a>
+                </button>
+            {% endif %}
+        </div>
+    </div>
+    </div>
 {% endblock %}
 
 {% block title %}
