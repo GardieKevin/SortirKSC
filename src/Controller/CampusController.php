@@ -44,7 +44,6 @@ class CampusController extends AbstractController
         int             $id,
         EntityManagerInterface $em,
         Request         $request,
-        Campus           $campus,
         CampusRepository $cr,
     ): Response
     {
@@ -64,5 +63,4 @@ class CampusController extends AbstractController
             compact("campus", "campusForm")
         );
     }
-    //TODO la même chose pour les events
 }

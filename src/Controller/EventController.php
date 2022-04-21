@@ -76,9 +76,10 @@ class EventController extends AbstractController
     #[Route('/event/modify/{id}', name: 'event_modify', requirements: ['id' => '^\d+'], methods: ['GET', 'POST'])]
     public function modify(
         int             $id,
+        EntityManagerInterface $em,
         Request         $request,
-        Event           $event,
         EventRepository $er,
+        CityRepository         $cr
     ): Response
     {
         $event = $er->find($id);
@@ -86,6 +87,18 @@ class EventController extends AbstractController
         $eventForm->handleRequest($request);
 
         $er->add($event);
+
+        if ($eventForm->isSubmitted() && $eventForm->isValid()){
+            $city = new City();
+            $city->setName($request->get('postcode'));
+            $city->setPostcode($request->get('searchPostCode'));
+            $city->setStreet($request->get('street'));
+            $cr->add($city);
+            $event->setCity($city);
+            $em->persist($event);
+            $em->flush();
+            return $this->redirectToRoute('main_home');
+        }
 
         return $this->renderForm('event/modify.html.twig',
             compact("event", "eventForm")
