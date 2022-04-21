@@ -7,7 +7,6 @@ $(document).ready(function () {
     let postcode = $('#postcode')
     let errorMessage = $('error-message');
 
-
     /* ------------Recherche API avec CODE POSTAL écrit par USER !!!! ------------*/
     $(searchPostCode).on('keyup', function () {
 
@@ -16,25 +15,20 @@ $(document).ready(function () {
         let url = apiUrl + code + formatPostcode;
 
         fetch(url, {method: 'get'}).then(response => response.json()).then(results => {
-            //console.log(results);
             $(postcode).find('option').remove();
             if (results.length) {
                 $.each(results, function (key, value) {
-                    //console.log(value);
-                    //console.log(value.nom);
                     $(postcode).append('<option value="' + value.nom + '" id="streetId">' + value.nom + '</option>');
 
                 });
             } else {
                 if ($(postcode).val()) {
-                    console.log('Erreur de code postal.');
                     $(errorMessage).text('Aucune commune avec ce code postal.').show();
                 } else {
                     $(errorMessage).text('').hide()
                 }
             }
         }).catch(err => {
-            console.log(err);
             $(postcode).find('select').remove();
         });
     });
@@ -67,14 +61,12 @@ $(document).ready(function () {
                 })
             } else {
                 if ($(street).val()) {
-                    console.log('Erreur de code postal.');
                     $(errorMessage).text('Aucune commune avec ce code postal.').show();
                 } else {
                     $(errorMessage).text('').hide();
                 }
             }
         }).catch(err => {
-            console.log(err);
             $(postcode).find('select').remove();
         });
 
@@ -93,7 +85,6 @@ function valRue() {
 
 function coordonnees(rue) {
     let valueStreet = rue;
-    console.log(valueStreet);
     let codePostCode = document.getElementById('searchPostCode').value;
     let apiUrlStreet = 'https://api-adresse.data.gouv.fr/search/?q=';
     const formatStreet = '&format=json&limit=1';
@@ -101,7 +92,6 @@ function coordonnees(rue) {
     let divCoordonnee = $('#divCoordonnee');
     $(divCoordonnee).find('div').remove();
     fetch(url, {method: 'get'}).then(response => response.json()).then(results => {
-
 
         if (results) {
             results.features.forEach((features) => {
@@ -113,16 +103,12 @@ function coordonnees(rue) {
             })
         } else {
             if ($(street).val()) {
-                console.log('Erreur de code postal.');
                 $(errorMessage).text('Aucune commune avec ce code postal.').show();
             } else {
                 $(errorMessage).text('').hide();
             }
         }
     }).catch(err => {
-        console.log(err);
         $(postcode).find('select').remove();
     });
-
-
 }
