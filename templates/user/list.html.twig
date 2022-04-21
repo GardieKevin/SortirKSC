@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <h1>Users list</h1>
+
+    {% for user in listeUsers %}
+        <article>
+            <div>{{ user.id }}</div>
+            <div>{{ user.pseudo }}</div>
+            <div>{{ user.firstname }}</div>
+            <div>{{ user.lastname }}</div>
+            <div>{{ user.email }}</div>
+            <div>{{ user.phone }}</div>
+
+            {% if user.activ %}
+                <div>Active user</div>
+                {% else %}
+                <div>Non active user</div>
+            {% endif %}
+
+            {% if user.administrator %}
+                <div>Administrator user</div>
+            {% else %}
+                <div>Non administrator user</div>
+            {% endif %}
+
+            <a href="{{ path('user_delete', {'id': user.id}) }}">
+                <button value="remove">Delete</button>
+            </a>
+
+        </article>
+    {% endfor %}
+
+
+
+    <article>
+        <div></div>
+    </article>
+
+{% endblock %}
+
+
+
