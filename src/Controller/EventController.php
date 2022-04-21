@@ -3,19 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\City;
-use App\Entity\Etat;
 use App\Entity\Event;
-use App\Entity\Place;
-use App\Entity\User;
 use App\Form\EventType;
-use App\Form\UserType;
 use App\Repository\CityRepository;
 use App\Repository\EtatRepository;
 use App\Repository\EventRepository;
 use App\Repository\UserRepository;
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
-use PhpParser\Node\Scalar\String_;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
