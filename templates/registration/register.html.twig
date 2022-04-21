@@ -3,19 +3,76 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
+    <h1 class="title">Register</h1>
 
     {{ form_start(registrationForm) }}
-    {{ form_row(registrationForm.email) }}
-    {{ form_row(registrationForm.firstname) }}
-    {{ form_row(registrationForm.lastname) }}
-    {{ form_row(registrationForm.pseudo) }}
-    {{ form_row(registrationForm.phone) }}
-{#    {{ form_row(registrationForm.plainPassword, {#}
-{#        label: 'Password'#}
-{#    }) }}#}
-    <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+    <div class="columns">
+        <div class="column">
+            <div class="field">
+                <label class="label">Firstname</label>
+                <div class="control">
+                    {{ form_row(registrationForm.firstname, {'label':false}) }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Lastname</label>
+                <div class="control">
+                    {{ form_row(registrationForm.lastname, {'label':false}) }}
+                </div>
+            </div>
 
+            <div class="field">
+                <label class="label">Phone</label>
+                <div class="control">
+                    {{ form_row(registrationForm.phone, {'label':false}) }}
+                </div>
+            </div>
+
+        </div>
+
+        <div class="column">
+            <div class="field">
+
+                <label for="inputIdentifier" class="label">Email</label>
+                <div class="control has-icons-left has-icons-right">
+
+                    {{ form_row(registrationForm.email, {'label':false}) }}
+                    <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+            </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label">Pseudo</label>
+                <div class="control">
+                    {{ form_row(registrationForm.pseudo, {'label':false}) }}
+                </div>
+            </div>
+
+            <div class="file">
+                <label class="file-label">
+
+                    <span class="file-cta">
+                      <span class="file-icon">
+                        <i class="fas fa-upload"></i>
+                      </span>
+                      <span class="file-label">
+                        {{ form_row(registrationForm.photo, {'label':false}, {'name':false}) }}
+                      </span>
+                    </span>
+                </label>
+            </div>
+
+            <div class="column">
+                <button type="submit" class="button is-centered">Register</button>
+            </div>
+        </div>
+        {#    {{ form_row(registrationForm.plainPassword, { #}
+        {#        label: 'Password' #}
+        {#    }) }} #}
+
+        {{ form_end(registrationForm) }}
+    </div>
 
 {% endblock %}
