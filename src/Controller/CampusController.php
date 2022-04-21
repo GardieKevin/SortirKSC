@@ -64,5 +64,4 @@ class CampusController extends AbstractController
             compact("campus", "campusForm")
         );
     }
-    }
 }
