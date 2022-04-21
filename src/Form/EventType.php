@@ -8,9 +8,10 @@ use App\Entity\City;
 use App\Entity\Etat;
 use App\Entity\Event;
 use App\Entity\User;
-use Doctrine\DBAL\Types\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\Mapping\Entity;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
+
 use SebastianBergmann\CodeCoverage\Report\Text;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
@@ -24,13 +25,13 @@ class EventType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('campus', EntityType::class, ['class' => Campus::class, 'choice_label'=> 'name'])
+            ->add('name', TextType::class, array('attr'=>array('class'=>'input', 'type'=>'text', 'placeholder'=>'Name of event ...')))
+            ->add('campus',EntityType::class, ['class' => Campus::class,'choice_label'=> 'name'])
             ->add('startingDate')
-            ->add('duration')
+            ->add('duration', TextType::class, array('attr'=>array('class'=>'input', 'type'=>'text', 'placeholder'=>'Duration ...')))
             ->add('limitInscribeDate')
-            ->add('maxInscriptionsNumber')
-            ->add('informations')
+            ->add('maxInscriptionsNumber', TextType::class, array('attr'=>array('class'=>'input', 'type'=>'text', 'placeholder'=>'Maximum participants ...')))
+            ->add('informations', TextType::class, array('attr'=>array('class'=>'textarea', 'placeholder'=>'Description ...')))
             ->add('etat',EntityType::class, ['class'=>Etat::class, 'choice_label'=>'libelle'] )
         ;
     }
