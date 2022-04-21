@@ -16,6 +16,7 @@ use function Sodium\add;
 
 class MainController extends AbstractController
 {
+
     #[Route('/', name: 'main_home')]
     public function home(
         EntityManagerInterface $entityManager,

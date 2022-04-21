@@ -2,11 +2,14 @@
 
 
 {% block body %}
-<img src="https://aws-cf.caradisiac.com/prod/photos/0/6/3/128063/5159345/img-5159345e9c.gif" width="900"></a>
+<img src="https://aws-cf.caradisiac.com/prod/photos/0/6/3/128063/5159345/img-5159345e9c.gif" width="900">
 
-    <audio controls="controls" autoplay="autoplay">
-        <source src="{{ asset('sounds/JFcrxiM62Ul_mission-impossible-theme-song-original.mp3') }} " type="audio/mp3">
-    </audio>
+{#    <iframe src="{{ asset('sounds/WOODImpt_Marteau de president 3 coups (ID 1590)_LS.mp3') }}" allow="autoplay" id="audio">#}
+{#    </iframe>#}
+     <audio id="player"  autoplay="autoplay" controls>
+         <source src="{{ asset('sounds/Sonnerie_Rabbi_Jacob.mp3') }} " type="audio/mp3">
+     </audio>
+
 
 
 <h1 style="color: red" >ERREUR 404</h1>
