@@ -1,20 +1,85 @@
-<nav class="nav">
+<nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+        <a class="navbar-itemLogo" href="{{ asset('/') }}">
+        </a>
 
-    <a class="nav-item" href="{{ path('main_home') }}">Home</a>
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+    </div>
 
-    {% if app.user %}
-        <a class="nav-item" href="{{ path('user_detail', {'id': app.user.id}) }}">My profile</a>
-        <a class="nav-item" href="{{ path('app_logout') }}">Log out</a>
+    <div id="navbarBasicExample" class="navbar-menu">
+        <div class="navbar-start">
+            <a class="navbar-item">
+                Home
+            </a>
 
-        {% if app.user.administrator %}
-            <a class="nav-item" href="{{ path('app_register') }}">Register a user</a>
-            <a class="nav-item" href="{{ path('campus_list') }}">Campus</a>
-            <a class="nav-item" href="{{ path('admin') }}">Dashboard</a>
-        {% endif %}
-    {% endif %}
+            <a class="navbar-item">
+                Campus
+            </a>
+            {% if app.user.administrator %}
+                <a class="navbar-item">
+                    Register a user
+                </a>
+                <a class="navbar-item" href="{{ path('admin') }}">
+                    Dashboard
+                </a>
+            {% endif %}
 
-    {% if not app.user %}
-        <a class="nav-item" href="{{ path('app_login') }}">Log in</a>
-    {% endif %}
+            {# <div class="navbar-item has-dropdown is-hoverable">
+                <a class="navbar-link">
+                    My profile
+                </a>
 
+                <div class="navbar-dropdown">
+                    <a class="navbar-item">
+                        Modify
+                    </a>
+                    <a class="navbar-item">
+                        Log out
+                    </a>
+                    <hr class="navbar-divider">
+                    <a class="navbar-item">
+                        Report an issue
+                    </a>
+                </div>
+            </div> #}
+        </div>
+
+        <div class="navbar-end">
+            <div class="navbar-item">
+                <div class="buttons">
+                    {% if app.user %}
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="button navbar-link" href="{{ path('user_detail', {'id': app.user.id}) }}">
+                                My profile
+                            </a>
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="{{ path('user_detail', {'id': app.user.id}) }}">
+                                    Detail
+                                </a>
+                                <a class="navbar-item" href="{{ path('user_edit', {'id': app.user.id}) }}">
+                                    Modify
+                                </a>
+                                <hr class="navbar-divider">
+                                <a class="navbar-item" href="{{ path('app_logout') }}">
+                                    Log out
+                                </a>
+                            </div>
+                        </div>
+
+
+                    {% endif %}
+                    {% if not app.user %}
+                        <a class="button is-primary" href="{{ path('app_login') }}">
+                            <strong>Login</strong>
+                        </a>
+                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+    </div>
 </nav>

@@ -32,6 +32,7 @@ class EventController extends AbstractController
         EntityManagerInterface $em,
         UserRepository         $ur,
         CityRepository         $cr,
+
     ): Response
     {
         $event = new Event();
