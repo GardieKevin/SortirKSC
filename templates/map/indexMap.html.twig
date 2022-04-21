@@ -5,6 +5,7 @@
     <style>
         #map{ /* la carte DOIT avoir une hauteur sinon elle n'apparaît pas */
             height:400px;
+            width: 600px;
         }
     </style>
     <title>Carte</title>
@@ -12,10 +13,11 @@
 
 {% block body %}
 
-    <div>
-        <button onclick="reloadMap()">Afficher la carte ?</button>
+    <div class="columns">
+        <button class="button is-info is-outlined" onclick="reloadMap()">Mettre la carte à jour</button>
     </div>
-    <div id="map">
+
+    <div class="mt-4" id="map">
         <!-- Ici s'affichera la carte -->
     </div>
 

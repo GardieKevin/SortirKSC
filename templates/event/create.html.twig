@@ -3,15 +3,86 @@
 {% block body %}
 
     <div>
-        <h1>Create an event</h1>
+        <h1 class="title">Create an event</h1>
     </div>
     <div>
         {{ form_start(myForm) }}
-        {{ form_widget(myForm) }}
-{% include 'city/index.html.twig' %}
-        <button type="submit">Envoyer</button>
-        {{ form_end(myForm) }}
-{% include 'map/indexMap.html.twig' %}
+        <div class="columns">
+
+            <div class="column">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        {{ form_row(myForm.name, {'label':false}) }}
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Information</label>
+                    <div class="control">
+                        {{ form_row(myForm.informations, {'label':false}) }}
+                    </div>
+                </div>
+
+                <div class="column is-flex is-justify-content-space-between is-three-quarters">
+                    <div class="field">
+                        <label class="label">Campus</label>
+                        <div class="control {#mr-6#}">
+                            <div class="select">
+                                {{ form_row(myForm.campus, {'label':false}) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="field">
+                        <label class="label">Etat</label>
+                        <div class="control">
+                            <div class="select">
+                                {{ form_row(myForm.etat, {'label':false}) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="column">
+                <div class="field">
+                    <label class="label">Date début</label>
+                    <div class="controle">
+                        {{ form_row(myForm.startingDate, {'label':false}) }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Date Fin</label>
+                    {{ form_row(myForm.limitInscribeDate, {'label':false}) }}
+                </div>
+
+
+                <div class="field">
+                    <label class="label">Durée</label>
+                    <div class="control">
+                        {{ form_row(myForm.duration, {'label':false}) }}
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="label">Maximum participants</label>
+                    <div class="control">
+                        {{ form_row(myForm.maxInscriptionsNumber, {'label':false}) }}
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+    {% include 'city/index.html.twig' %}
+    {% include 'map/indexMap.html.twig' %}
+    <div class="column">
+        <button class="button is-primary" type="submit">Envoyer</button>
+    </div>
+    {{ form_end(myForm) }}
+
+    </div>
+    </div>
+    </div>
 {% endblock %}
