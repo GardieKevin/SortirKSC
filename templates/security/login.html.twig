@@ -3,41 +3,69 @@
 {% block title %}Log in!{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <form method="post">
+        {% if error %}
+            <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        {% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.pseudo }}, <a href="{{ path('app_logout') }}">Logout</a>
+        {% if app.user %}
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <div class="mb-3">
+                            You are logged in as {{ app.user.pseudo }},
+                        </div>
+                        <a class="navbar-item" href="{{ path('app_logout') }}">
+                            Log out
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        <div class="field">
+            <label for="inputIdentifier" class="label">Identifier</label>
+            <div class="control has-icons-left has-icons-right">
+                <input class="input" type="text" value="{{ last_username }}" name="email" id="inputIdentifier"
+                       autocomplete="text" required autofocus>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </div>
         </div>
-    {% endif %}
 
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputIdentifier">Identifier</label>
-    <input type="text" value="{{ last_username }}" name="email" id="inputIdentifier" class="form-control" autocomplete="text" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-
-{#        Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.#}
-{#        See https://symfony.com/doc/current/security/remember_me.html#}
-
-        <div class="checkbox mb-3">
-            <label>
-                <input type="checkbox" name="_remember_me"> Remember me
-            </label>
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control has-icons-left has-icons-right">
+                <input class="input" placeholder="Password input" type="password" name="password" id="inputPassword"
+                       autocomplete="current-password" required>
+                <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </span>
+            </div>
         </div>
 
+        <input type="hidden" name="_csrf_token"
+               value="{{ csrf_token('authenticate') }}">
 
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-    <a href="{{ path('app_forgot_password_request') }}">Reset Password</a>
-</form>
+        <div class="field is-grouped">
+            <div class="control">
+                <a href="/">
+                    <button class="button is-link" type="submit">Login</button>
+                </a>
+            </div>
+
+            <div class="control">
+                <a href="{{ path('app_forgot_password_request') }}">
+                    <button class="button is-link is-light">Reset password</button>
+                </a>
+            </div>
+        </div>
+    </form>
 {% endblock %}

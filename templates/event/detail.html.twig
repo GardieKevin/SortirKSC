@@ -9,10 +9,13 @@
     <p>Max affluence: {{ event.maxInscriptionsNumber }} persons</p>
     <p>Duration : {{ event.duration }} minutes</p>
     <p>Description & informations : {{ event.informations }}</p>
-    <p>Campus : {{ event.campus }}</p>
-    <p>City : {{ event.city }}</p>
-{#    <p>Street : //TODO faire une recherche sur une map</p>#}
-{#    <p>CP : {{ event.postcode }}</p>#}
+    <p>Organisator campus : {{ event.campus }}</p>
+    <div>
+        <p>Street: {{ event.city.street }}</p>
+        <p>City : {{ event.city.name }}</p>
+        <p>Postcode : {{ event.city.postcode }}</p>
+    </div>
+
 {#    <p>Latitude :  //TODO Faisable pour une recherche d'adresse precise uniquement</p>#}
 {#    <p>longitude : //TODO Faisable pour une recherche d'adresse precise uniquement</p>#}
 

@@ -66,8 +66,10 @@ class Event
     #[Groups("read")]
     private $participants;
 
-    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[ORM\ManyToOne(targetEntity: City::class, inversedBy: 'events')]
+    #[ORM\JoinColumn(nullable: false)]
     private $city;
+
 
     public function __construct()
     {
@@ -214,15 +216,16 @@ class Event
         return $this;
     }
 
-    public function getCity(): ?string
+    public function getCity(): ?City
     {
         return $this->city;
     }
 
-    public function setCity(?string $city): self
+    public function setCity(?City $city): self
     {
         $this->city = $city;
 
         return $this;
     }
+
 }

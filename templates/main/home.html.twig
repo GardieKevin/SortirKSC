@@ -2,43 +2,55 @@
 
 {% block body %}
 
-    {% if not app.user %}
-        <h2>Welcome to sortir.com</h2>
-        <h4>If you want to see the events organised by our KSC lovers<br> please connect you to our flying network!</h4>
-    {% endif %}
+    <div class="block">
+        <div class="columns ">
+            <div class="column is-three-quarters">
+                <div class="box">
+                    {% if not app.user %}
+                        <div class="title">
+                        <h2>Welcome to sortir.com</h2>
+                        <h4>If you want to see the events organised by our KSC lovers<br> please connect you to our
+                            flying
+                            network!</h4>
+                        </div>
+                    {% endif %}
 
-    {% if app.user %}
-        <h2> Welcome back {{ app.user.firstname }} !</h2>
+                    {% if app.user %}
+                    <div class="title">
+                    <h2> Welcome back {{ app.user.firstname }} !</h2>
+                    </div>
+                    <label for="campus">Campus</label>
+                    <input type="text" name="campus" placeholder="Campus" id="campus">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" placeholder="Event name..." id="name">
+                    <label for="dateStart">From</label>
+                    <input type="datetime-local" name="dateStart" placeholder="Date" id="dateStart">
+                    <label for="dateEnd">To</label>
+                    <input type="datetime-local" name="dateEnd" placeholder="Date" id="dateEnd">
 
-        <div>
-            <label for="campus">Campus</label>
-            <input type="text" name="campus" placeholder="Campus" id="campus">
-            <label for="name">Name</label>
-            <input type="text" name="name" placeholder="Event name..." id="name">
-            <label for="dateStart">From</label>
-            <input type="datetime-local" name="dateStart" placeholder="Date" id="dateStart">
-            <label for="dateEnd">To</label>
-            <input type="datetime-local" name="dateEnd" placeholder="Date" id="dateEnd">
-            <div style="display: none" id="error-message"></div>
-            <input type="hidden" value="{{ app.user.id }}" id="idUser">
-            <input type="checkbox" name="organisator" id="organisator">
-            <label for="organisator">My events</label>
-            <input type="checkbox" name="participant" id="participant" onclick="notParticipantVisibility()">
-            <label for="participant" id="participantLabel">Events I'm inscribed</label>
-            <input type="checkbox" name="notParticipant" id="notParticipant" onclick="participantVisibility()">
-            <label for="notParticipant" id="notParticipantlabel">Events I'm not inscribed</label>
+                    <div style="display: none" id="error-message"></div>
+                    <input type="hidden" value="{{ app.user.id }}" id="idUser">
+                    <input type="checkbox" name="organisator" id="organisator">
+                    <label for="organisator">My events</label>
+                    <input type="checkbox" name="participant" id="participant" onclick="notParticipantVisibility()">
+                    <label for="participant" id="participantLabel">Events I'm inscribed</label>
+                    <input type="checkbox" name="notParticipant" id="notParticipant" onclick="participantVisibility()">
+                    <label for="notParticipant" id="notParticipantlabel">Events I'm not inscribed</label>
+                </div>
+            </div>
+            <button style="margin-top: 40px" class="button is-large is-primary is-outlined " onclick="myMethod()">Search</button>
+
         </div>
+        <div class="block">
+            <h2>Events list</h2>
 
-        <button onclick="myMethod()">Search</button>
+            <div id="event"></div>
 
-        <h2>Events list</h2>
+            <a href="{{ path('event_create') }}">
+                <button class="button" value="create">Create an event</button>
+            </a>
 
-        <div id="event"></div>
-
-        <a href="{{ path('event_create') }}">
-            <button value="create">Create an event</button>
-        </a>
-
-    {% endif %}
-
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
