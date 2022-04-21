@@ -3,10 +3,10 @@
 {% block title %}Edit User{% endblock %}
 
 {% block body %}
-    <h1>Welcome {{ app.user.firstname }} {{ app.user.lastname }}</h1>
+    <h1 class="title">Welcome {{ app.user.firstname }} {{ app.user.lastname }}</h1>
     <script>
         function display_image(src, width, height, alt) {
-            var a = document.createElement("img");
+            let a = document.createElement("img");
             a.src = "{{ asset('pictures/photos/' ~user.image )}}";
             // a.width = 200;
             a.height = 150;

@@ -18,8 +18,7 @@ class UserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email', TextType::class,
-                ['label' => 'Email'])
+            ->add('email', TextType::class, array('attr' => array('class' => 'input', 'type' => 'email', 'placeholder' => 'alexsmith@gmail.com')))
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Password',
                 // instead of being set onto the object directly,
@@ -38,14 +37,10 @@ class UserType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('lastname', TextType::class,
-                ['label' => 'Surname '])
-            ->add('firstname', TextType::class,
-                ['label' => 'firstname'])
-            ->add('pseudo', TextType::class,
-                ['label' => 'Pseudo'])
-            ->add('phone', TextType::class,
-                ['label' => 'Phone'])
+            ->add('lastname', TextType::class, array('attr' => array('class' => 'input', 'type' => 'text', 'placeholder' => 'Lavaler')))
+            ->add('firstname', TextType::class, array('attr' => array('class' => 'input', 'type' => 'text', 'placeholder' => 'Yvon')))
+            ->add('pseudo', TextType::class, array('attr' => array('class' => 'input', 'type' => 'text', 'placeholder' => 'BigBossDu44')))
+            ->add('phone', TextType::class, array('attr' => array('class' => 'input', 'type' => 'text', 'placeholder' => 'Fait un effort ...')))
             ->add('photo', FileType::class,
                 ['label' => 'Avatar : ',
                     'mapped' => false,
