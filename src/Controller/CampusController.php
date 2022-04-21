@@ -25,13 +25,12 @@ class CampusController extends AbstractController
 
     #[Route('/campus/delete/{id}', name: 'campus_delete')]
     public function delete(
-        Campus $campus,
         CampusRepository $campusRepository,
         EntityManagerInterface $em,
-        Request $request, $id
+        Request $id
     ): Response
     {
-        $eventRepository = $em->getRepository(Campus::class);
+        $em->getRepository(Campus::class);
         $campus = $campusRepository->find($id);
         $em->remove($campus);
         $em->flush();
@@ -44,7 +43,6 @@ class CampusController extends AbstractController
         int             $id,
         EntityManagerInterface $em,
         Request         $request,
-        Campus           $campus,
         CampusRepository $cr,
     ): Response
     {

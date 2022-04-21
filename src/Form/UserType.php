@@ -2,11 +2,7 @@
 
 namespace App\Form;
 
-use App\Entity\Event;
 use App\Entity\User;
-use mysql_xdevapi\RowResult;
-use SebastianBergmann\CodeCoverage\Report\Text;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -23,9 +19,9 @@ class UserType extends AbstractType
     {
         $builder
             ->add('email', TextType::class,
-            ['label'=> 'Email'])
+                ['label' => 'Email'])
             ->add('plainPassword', PasswordType::class, [
-                'label'=>'Password',
+                'label' => 'Password',
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
@@ -43,31 +39,30 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('lastname', TextType::class,
-                ['label'=>'Surname '])
+                ['label' => 'Surname '])
             ->add('firstname', TextType::class,
-                ['label'=>'firstname'])
+                ['label' => 'firstname'])
             ->add('pseudo', TextType::class,
-            ['label'=>'Pseudo'])
+                ['label' => 'Pseudo'])
             ->add('phone', TextType::class,
-                ['label'=>'Phone'])
-            ->add('photo',FileType::class,
-                ['label'=>'Avatar : ',
-                    'mapped'=>false,
-                    'required'=>false,
-                    'constraints'=>[
+                ['label' => 'Phone'])
+            ->add('photo', FileType::class,
+                ['label' => 'Avatar : ',
+                    'mapped' => false,
+                    'required' => false,
+                    'constraints' => [
                         new File([
-                            'maxSize'=>'1024k',
-                            'mimeTypes'=>[
+                            'maxSize' => '1024k',
+                            'mimeTypes' => [
                                 'image/gif',
                                 'image/jpeg',
                                 'image/jpg',
                                 'image/png',
                             ],
-                            'mimeTypesMessage'=>'Choose a valid format : gif,jpeg,jpg,png',
+                            'mimeTypesMessage' => 'Choose a valid format : gif,jpeg,jpg,png',
                         ])
                     ],
-                ])
-        ;
+                ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -7,7 +7,6 @@ let macarte = null;
 function initMap() {
     let lat = 47.21934;
     let lon = -1.550804;
-    console.log(lat + 'scriptMAP latitude JE PASSE DANS LA FONCTION ONCLICK')
     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
     macarte = L.map('map').setView([lat, lon], 11);
     // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
@@ -25,7 +24,6 @@ function reloadMap() {
     macarte.remove();
     let lat = coordonneesY;
     let lon = coordonneesX;
-    console.log(lat + 'scriptMAP latitude JE PASSE DANS LA FONCTION ONCLICK')
     // Créer l'objet "macarte" et l'insèrer dans l'élément HTML qui a l'ID "map"
     macarte = L.map('map').setView([lat, lon], 11);
     // Leaflet ne récupère pas les cartes (tiles) sur un serveur par défaut. Nous devons lui préciser où nous souhaitons les récupérer. Ici, openstreetmap.fr
@@ -38,7 +36,6 @@ function reloadMap() {
     let marker = L.marker([lat, lon]).addTo(macarte);
 
 }
-
 window.onload = function(){
     initMap();
 };

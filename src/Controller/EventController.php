@@ -17,15 +17,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class EventController extends AbstractController
 {
-
-//    #[Route('/event', name: 'event_index')]
-//    public function index(): Response
-//    {
-//        return $this->render('event/detail.html.twig', [
-//            'controller_name' => 'EventController',
-//        ]);
-//    }
-
     #[Route('/create', name: 'event_create')]
     public function create(
         Request                $request,
@@ -111,7 +102,6 @@ class EventController extends AbstractController
     #[Route('/event/{event}/registration/', name: 'event_registration')]
     public function eventAddUser(
         Event $event,
-        EventRepository $er,
         UserRepository $ur,
         EntityManagerInterface $em,
     ): Response
@@ -128,7 +118,6 @@ class EventController extends AbstractController
     #[Route('/event/{event}/remove/', name: 'event_remove')]
     public function eventRemoveUser(
         Event $event,
-        EventRepository $er,
         UserRepository $ur,
         EntityManagerInterface $em,
     ): Response
@@ -143,17 +132,14 @@ class EventController extends AbstractController
     #[Route('/event/close/{id}', name: 'event_close')]
     public function eventCloser(
         Event $event,
-        EventRepository $er,
         EtatRepository $etr,
         EntityManagerInterface $em,
-        Request $request, $id
     ): Response
     {
 
         $id2=6;
         $etat=$etr->find($id2);
         $event->setEtat($etat);
-//        dd($event);
         $em->persist($event);
         $em->flush();
         return $this->redirectToRoute('user_index');
@@ -161,10 +147,8 @@ class EventController extends AbstractController
 
     #[Route('/event/delete/{id}', name: 'event_delete')]
     public function delete(
-        Event $event,
-        EventRepository $eventRepository,
         EntityManagerInterface $em,
-        Request $request, $id
+        Request $id
     ): Response
     {
         $eventRepository = $em->getRepository(Event::class);
