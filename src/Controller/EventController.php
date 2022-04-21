@@ -48,7 +48,9 @@ class EventController extends AbstractController
             $city = new City();
             $city->setName($request->get('postcode'));
             $city->setPostcode($request->get('searchPostCode'));
+            $city->setStreet($request->get('street'));
             $cr->add($city);
+            $event->setCity($city);
             $em->persist($event);
             $em->flush();
 

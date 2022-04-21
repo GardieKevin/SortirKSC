@@ -123,9 +123,11 @@ function myMethod() {
 
             if (dateStart === null) {
                 dateStart = Date.now();
+                console.log(dateStart);
             }
             if (dateEnd === null) {
                 dateEnd = Date.now() + 86400 * 1000 * 365;
+                console.log(dateEnd);
             }
 
             for (let event of uniqueEvents) {
