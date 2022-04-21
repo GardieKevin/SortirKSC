@@ -9,12 +9,14 @@
                 <div>{{ choice.id }}</div>
                 <div>{{ choice.name }}</div>
                 <div>{{ choice.postcode }}</div>
+                {% if app.user.administrator %}
                 <a href="{{ path('campus_delete', {'id': choice.id}) }}">
                     <button value="remove">Delete</button>
                 </a>
                 <a href="{{ path('campus_modify', {'id': choice.id }) }}">
                     <button value="modify">Modify</button>
                 </a>
+                {% endif %}
             </article>
         {% endfor %}
 
