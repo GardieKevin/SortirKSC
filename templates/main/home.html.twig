@@ -8,16 +8,16 @@
                 <div class="box">
                     {% if not app.user %}
                         <div class="title">
-                        <h2>Welcome to sortir.com</h2>
-                        <h4>If you want to see the events organised by our KSC lovers<br> please connect you to our
-                            flying
-                            network!</h4>
+                            <h2>Welcome to sortir.com</h2>
+                            <h4>If you want to see the events organised by our KSC lovers<br> please connect you to our
+                                flying
+                                network!</h4>
                         </div>
                     {% endif %}
 
                     {% if app.user %}
                     <div class="title">
-                    <h2> Welcome back {{ app.user.firstname }} !</h2>
+                        <h2> Welcome back {{ app.user.firstname }} !</h2>
                     </div>
                     <label for="campus">Campus</label>
                     <input type="text" name="campus" placeholder="Campus" id="campus">
@@ -38,19 +38,21 @@
                     <label for="notParticipant" id="notParticipantlabel">Events I'm not inscribed</label>
                 </div>
             </div>
-            <button style="margin-top: 40px" class="button is-large is-primary is-outlined " onclick="myMethod()">Search</button>
+            <button style="margin-top: 40px" class="button is-large is-primary is-outlined " onclick="myMethod()">
+                Search
+            </button>
 
         </div>
-        <div class="block">
-            <h2>Events list</h2>
 
-            <div id="event"></div>
+        <h2 class="title">Events list</h2>
 
-            <a href="{{ path('event_create') }}">
-                <button class="button" value="create">Create an event</button>
-            </a>
+        <div class="columns is-justify-content-space-evenly" id="event"></div>
 
-            {% endif %}
-        </div>
+        <a href="{{ path('event_create') }}">
+            <button class="button" value="create">Create an event</button>
+        </a>
+
+        {% endif %}
+
     </div>
 {% endblock %}
