@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -23,6 +24,34 @@ class UserController extends AbstractController
         return $this->render('user/detail.html.twig');
 
     }
+
+    #[Route('/users', name: 'user_list')]
+    public function list(
+        UserRepository  $userRepository
+    ): Response
+    {
+        $listeUsers = $userRepository->findAll();
+        return $this->render('user/list.html.twig',
+            compact("listeUsers"));
+
+    }
+
+    #[Route('/user/delete/{id}', name: 'user_delete')]
+    public function delete(
+        User $user,
+        UserRepository $userRepository,
+        EntityManagerInterface $em,
+        Request $request, $id
+    ): Response
+    {
+        $userRepository = $em->getRepository(User::class);
+        $user = $userRepository->find($id);
+        $em->remove($user);
+        $em->flush();
+
+        return $this->redirectToRoute('main_home');
+    }
+
 
     #[Route('/user/{id}', name: 'user_detail')]
     public function detail(
