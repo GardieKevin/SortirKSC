@@ -2,11 +2,16 @@
 
 {% block body %}
 
-    {{ form_start(eventForm) }}
-    {{ form_widget(eventForm) }}
-    <a href="{{ path('main_home') }}">
-        <button>Submit</button>
-    </a>
-    {{ form_end(eventForm) }}
+    <div>
+        <h1>Create an event</h1>
+    </div>
+    <div>
+        {{ form_start(eventForm) }}
+        {{ form_widget(eventForm) }}
+        {% include 'city/index.html.twig' %}
+        <button type="submit">Envoyer</button>
+        {{ form_end(eventForm) }}
+        {% include 'map/indexMap.html.twig' %}
+    </div>
 {% endblock %}
 
