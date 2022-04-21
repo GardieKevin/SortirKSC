@@ -15,42 +15,15 @@
             <a class="navbar-item" href="{{ path('main_home') }}">
                 Home
             </a>
-
-            <a class="navbar-item" href="{{ path('campus_list') }}">
-                Campus
-            </a>
-
-            <a class="navbar-item" href="{{ path('user_list') }}">
-                Users
-            </a>
-
-{#            {% if app.user.administrator %}#}
-                <a class="navbar-item" href="{{ path('app_register') }}">
-                    Register a user
-                </a>
-                <a class="navbar-item" href="{{ path('admin') }}">
-                    Dashboard
-                </a>
-{#            {% endif %}#}
-
-            {# <div class="navbar-item has-dropdown is-hoverable">
-                <a class="navbar-link">
-                    My profile
+            {% if app.user %}
+                <a class="navbar-item" href="{{ path('campus_list') }}">
+                    Campus
                 </a>
 
-                <div class="navbar-dropdown">
-                    <a class="navbar-item">
-                        Modify
-                    </a>
-                    <a class="navbar-item">
-                        Log out
-                    </a>
-                    <hr class="navbar-divider">
-                    <a class="navbar-item">
-                        Report an issue
-                    </a>
-                </div>
-            </div> #}
+                <a class="navbar-item" href="{{ path('user_list') }}">
+                    Users
+                </a>
+            {% endif %}
         </div>
 
         <div class="navbar-end">
@@ -68,6 +41,15 @@
                                 <a class="navbar-item" href="{{ path('user_edit', {'id': app.user.id}) }}">
                                     Modify
                                 </a>
+                                <hr class="navbar-divider">
+                                {% if app.user.administrator %}
+                                    <a class="navbar-item" href="{{ path('app_register') }}">
+                                        Register a user
+                                    </a>
+                                    <a class="navbar-item" href="{{ path('admin') }}">
+                                        Dashboard
+                                    </a>
+                                {% endif %}
                                 <hr class="navbar-divider">
                                 <a class="navbar-item" href="{{ path('app_logout') }}">
                                     Log out
