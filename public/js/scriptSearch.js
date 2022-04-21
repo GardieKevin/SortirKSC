@@ -4,21 +4,19 @@ let apiUrl = 'http://127.0.0.1:8000/api/events.json';
 function display() {
     fetch(apiUrl, {method: 'get'}).then(response => response.json()).then(results => {
         for (let result of results) {
-
             if (result['etat']['id'] !== 7) {
 
-                $(div).append('<h3>' + "Name : " + result['name'] + '</h3>',
-                    '<div>' + "Date & Hour : " + result['startingDate'] + '</div>',
-                    '<div>' + "Duration : " + result['duration'] + '</div>',
-                    '<div>' + "Inscription limit : " + result['limitInscribeDate'] + '</div>',
-                    '<div>' + "Max affluence : " + result['maxInscriptionsNumber'] + '</div>',
-                    '<div>' + "Informations : " + result['informations'] + '</div>',
-                    '<a href="user/' + result['organisator']['id'] + '">' + result['organisator']['pseudo'] + '</a>',
-                    '<div>' + "Organisator campus : " + result['campus']['name'] + '</div>',
-                    '<a href="event/detail/' + result['id'] + '"><button type="submit"> Détails </button></a>'
+                $(div).append('<div class="box">'+'<h3>' + "Name : " + result['name'] + '</h3>'+
+                    '<div>' + "Date & Hour : " + result['startingDate'] + '</div>'+
+                    '<div>' + "Duration : " + result['duration'] + '</div>'+
+                    '<div>' + "Inscription limit : " + result['limitInscribeDate'] + '</div>'+
+                    '<div>' + "Max affluence : " + result['maxInscriptionsNumber'] + '</div>'+
+                    '<div>' + "Informations : " + result['informations'] + '</div>'+
+                    '<a href="user/' + result['organisator']['id'] + '">' + result['organisator']['pseudo'] + '</a>'+
+                    '<div>' + "Organisator campus : " + result['campus']['name'] + '</div>'+
+                    '<a href="event/detail/' + result['id'] + '"><button class="button" type="submit"> Détails </button></a>'+'</div>'
                 )
             }
-
         }
     })
 }
@@ -147,15 +145,15 @@ function myMethod() {
             for (let event of eventSearched) {
 
                 //Construction de l'event
-                div.append('<h3>' + "Name : " + event['name'] + '</h3>',
-                    '<div>' + "Date & Hour : " + event['startingDate'] + '</div>',
-                    '<div>' + "Duration : " + event['duration'] + '</div>',
-                    '<div>' + "Inscription limit : " + event['limitInscribeDate'] + '</div>',
-                    '<div>' + "Max affluence : " + event['maxInscriptionsNumber'] + '</div>',
-                    '<div>' + "Informations : " + event['informations'] + '</div>',
-                    '<a href="user/' + event['organisator']['id'] + '">' + event['organisator']['pseudo'] + '</a>',
-                    '<div>' + "Campus : " + event['campus']['name'] + '</div>',
-                    '<a href="event/detail/' + event['id'] + '"><button type="submit"> Détails </button></a>')
+                div.append('<div class="box">'+'<h3>' + "Name : " + event['name'] + '</h3>'+
+                    '<div>' + "Date & Hour : " + event['startingDate'] + '</div>'+
+                    '<div>' + "Duration : " + event['duration'] + '</div>'+
+                    '<div>' + "Inscription limit : " + event['limitInscribeDate'] + '</div>'+
+                    '<div>' + "Max affluence : " + event['maxInscriptionsNumber'] + '</div>'+
+                    '<div>' + "Informations : " + event['informations'] + '</div>'+
+                    '<a href="user/' + event['organisator']['id'] + '">' + event['organisator']['pseudo'] + '</a>'+
+                    '<div>' + "Campus : " + event['campus']['name'] + '</div>'+
+                    '<a href="event/detail/' + event['id'] + '"><button type="submit"> Détails </button></a>'+'</div')
             }
         }
     )
