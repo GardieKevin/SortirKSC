@@ -45,7 +45,8 @@ class EventRepository extends ServiceEntityRepository
         }
     }
 
-    public function findAllEvents(){
+    public function findAllEvents()
+    {
         $qb = $this->createQueryBuilder('e');
         $qb->addOrderBy('e.startingDate', 'ASC');
         $req = $qb->getQuery();
