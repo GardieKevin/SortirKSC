@@ -12,9 +12,12 @@
 <body class="body" onload="display()">
 
 {% include('fragments/nav-bar.html.twig') %}
+<div class="container">
 {% block body %}{% endblock %}
+</div>
 {% include ('fragments/footer.html.twig') %}
 {# <script src="{{ asset('js/scriptApi.js') }}"></script> #}
+
 <script src="{{ asset('js/scriptSearch.js') }}"></script>
 </body>
 </html>

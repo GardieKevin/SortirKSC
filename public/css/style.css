@@ -4,3 +4,7 @@
     height: 138px;
     width: 102px;
 }
+
+.columns {
+    margin : 0 !important;
+}
