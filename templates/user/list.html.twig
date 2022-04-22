@@ -6,34 +6,32 @@
     <div class="columns">
     {% for user in listeUsers %}
         <article>
-
-            <div class="column">
-            <div>{{ user.id }}</div>
-            <div>{{ user.pseudo }}</div>
-            <div>{{ user.firstname }}</div>
-            <div>{{ user.lastname }}</div>
-            <div>{{ user.email }}</div>
-            <div>{{ user.phone }}</div>
-
+            <div class="card">
+                <div class="column">
+                    <div>{{ user.pseudo }}</div>
+                    <div>{{ user.firstname }}</div>
+                    <div>{{ user.lastname }}</div>
+                    <div>{{ user.email }}</div>
+                    <div>{{ user.phone }}</div>
 
 
-                {% if user.activ %}
-                    <div>Active user</div>
-                {% else %}
-                    <div>Non active user</div>
-                {% endif %}
+                    {% if user.activ %}
+                        <div>Active user</div>
+                    {% else %}
+                        <div>Non active user</div>
+                    {% endif %}
 
-                {% if user.administrator %}
-                    <div>Administrator user</div>
-                {% else %}
-                    <div>Non administrator user</div>
-                {% endif %}
+                    {% if user.administrator %}
+                        <div>Administrator user</div>
+                    {% else %}
+                        <div>Non administrator user</div>
+                    {% endif %}
 
 
-
-                <a href="{{ path('user_delete', {'id': user.id}) }}">
-                    <button value="remove">Delete</button>
-                </a>
+                    <a href="{{ path('user_delete', {'id': user.id}) }}">
+                        <button class="button" value="remove">Delete</button>
+                    </a>
+                </div>
             </div>
         </div>
         </article>

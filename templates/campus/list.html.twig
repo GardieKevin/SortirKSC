@@ -2,19 +2,18 @@
 
 {% block body %}
 
-    <h1>Campus list</h1>
+    <h1 class="title">Campus list</h1>
 
         {% for choice in campus %}
             <article>
-                <div>{{ choice.id }}</div>
                 <div>{{ choice.name }}</div>
                 <div>{{ choice.postcode }}</div>
                 {% if app.user.administrator %}
                 <a href="{{ path('campus_delete', {'id': choice.id}) }}">
-                    <button value="remove">Delete</button>
+                    <button class="button" value="remove">Delete</button>
                 </a>
                 <a href="{{ path('campus_modify', {'id': choice.id }) }}">
-                    <button value="modify">Modify</button>
+                    <button class="button" value="modify">Modify</button>
                 </a>
                 {% endif %}
             </article>
